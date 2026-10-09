@@ -1,4 +1,4 @@
-// D5 pricing page — kinkihi layout + latest 六档口径 + independent basic/pro tier sliders.
+// D5 pricing page — kinkihi layout + AI/workflow split + team/enterprise modules + live pricing supplements.
 
 const tiers = [
   { credits: 2000, basic: 99, basicFirst: 79, pro: 249, proFirst: 219, basicAnnual: 799, proAnnual: 2199 },
@@ -23,7 +23,7 @@ const copy = {
     'audience.personal': '个人创作', 'audience.team': '团队协作',
     'billing.monthly': '按月', 'billing.annual': '按年', 'billing.discount': '享x折',
     'billing.toAnnual': '切换按年购买', 'billing.toMonthly': '切换按月购买',
-    'education.title': 'D5 for Education', 'education.subtitle': 'Best for students, educators, and academic institutions', 'education.button': 'Apply',
+    'education.title': 'D5学生版', 'education.subtitle': '专为高校在校生推出的特别权益方案，助力教与学', 'education.button': '立即申请',
     'workflow.title': '方案推荐', 'workflow.subtitle': '让创作走的更远',
     'comparison.title': '完整功能对比', 'comparison.subtitle': '详细对比套餐及功能权益',
     'faq.q1': '各档方案只差积分吗？',
@@ -31,7 +31,13 @@ const copy = {
     'faq.q2': '年购积分如何发放？会自动续费吗？',
     'faq.a2': '年购一次支付，积分仍按月发放，未用完不累计到下一积分月。当前为到期不自动续费；是否自动续费以购买确认页为准。',
     'faq.q3': '充值规则是什么？团队 / 企业怎么买？',
-    'faq.a3': '充值可补充 D5 AI 积分，不改变版本功能。社区版不可充值；基础版按档位为标准价或额外赠送，充值积分有效期 90 天；专业版额外赠送更高，有效期 180 天，均以充值确认页为准。团队版与企业版按基础席位 / 专业席位分开配置，不展示公开自助价，请联系销售获取报价。',
+    'faq.a3': '充值可补充 D5 AI 积分，不改变版本功能。社区版不可充值；基础版按档位为标准价或额外赠送，充值积分有效期 90 天；专业版额外赠送更高，有效期 180 天，均以充值确认页为准。团队版与企业版为两个独立版本模块，各自提供基础席位与专业席位，不展示公开自助价，请联系销售获取报价。',
+    'faq.q4': '如何获得发票凭证？',
+    'faq.a4': '成功订购后，可前往 D5 用户中心 · 发票服务 申请开票。',
+    'faq.q5': '专业版用户能否升级或加入团队版？',
+    'faq.a5': '专业版用户如需升级为团队版，可联系我们了解详情。若团队已开通团队版，可联系团队管理员邀请你加入。',
+    'faq.q6': '购买及订阅的详细规则？',
+    'faq.a6': '查看 D5 订阅规则（d5render.cn/subscription-rules）。其他购买问题可进入帮助中心向我们提问。',
     'footer.product': '产品', 'footer.whyD5': '为什么选择 D5', 'footer.whatsNew': '最新动态', 'footer.pricing': '价格', 'footer.download': '下载', 'footer.teams': 'D5 团队版', 'footer.education': 'D5 教育版', 'footer.roadmap': '开发路线图', 'footer.assets': '素材库',
     'footer.support': '支持', 'footer.help': '帮助中心', 'footer.requirements': '系统要求', 'footer.space': '我的空间',
     'footer.learn': '学习', 'footer.tutorial': '教程', 'footer.sample': '示例场景', 'footer.gallery': '作品展示', 'footer.blog': '博客', 'footer.webinars': '线上研讨会', 'footer.certification': '认证', 'footer.instructor': 'D5 讲师',
@@ -47,7 +53,7 @@ const copy = {
     'audience.personal': 'For creators', 'audience.team': 'For teams',
     'billing.monthly': 'Monthly', 'billing.annual': 'Yearly', 'billing.discount': 'Save x%',
     'billing.toAnnual': 'Switch to yearly billing', 'billing.toMonthly': 'Switch to monthly billing',
-    'education.title': 'D5 for Education', 'education.subtitle': 'Best for students, educators, and academic institutions', 'education.button': 'Apply',
+    'education.title': 'D5 for Education', 'education.subtitle': 'A special plan for enrolled university students — teaching and learning', 'education.button': 'Apply',
     'workflow.title': 'Plan finder', 'workflow.subtitle': 'Take your creativity further',
     'comparison.title': 'Compare all features', 'comparison.subtitle': 'Detailed comparison of plans and features',
     'faq.q1': 'Do tiers only differ in credits?',
@@ -55,7 +61,13 @@ const copy = {
     'faq.q2': 'How are yearly credits issued? Auto-renew?',
     'faq.a2': 'Yearly plans are paid once; credits are still issued monthly and unused credits do not roll over. Current purchases do not auto-renew at expiry; the confirmation page is authoritative.',
     'faq.q3': 'Top-up rules? How do Teams / Enterprise work?',
-    'faq.a3': 'Top-ups add D5 AI credits without changing plan features. Community cannot top up; Basic uses list price or a bonus by tier with 90-day validity; Pro has a higher bonus with 180-day validity — see the top-up confirmation page. Teams and Enterprise use separate Basic / Pro seats with no public self-serve price; contact sales for a quote.',
+    'faq.a3': 'Top-ups add D5 AI credits without changing plan features. Community cannot top up; Basic uses list price or a bonus by tier with 90-day validity; Pro has a higher bonus with 180-day validity — see the top-up confirmation page. Teams and Enterprise are separate modules, each with Basic / Pro seats and no public self-serve price; contact sales for a quote.',
+    'faq.q4': 'How do I get an invoice?',
+    'faq.a4': 'After a successful purchase, apply for an invoice in D5 User Center · Invoice Service.',
+    'faq.q5': 'Can Pro users upgrade or join Teams?',
+    'faq.a5': 'Contact us to upgrade from Pro to Teams. If your organization already has Teams, ask your admin to invite you.',
+    'faq.q6': 'Where are the full subscription rules?',
+    'faq.a6': 'See D5 Subscription Rules (d5render.cn/subscription-rules). For other purchase questions, visit Help Center.',
     'footer.product': 'Product', 'footer.whyD5': 'Why D5', 'footer.whatsNew': 'What’s New', 'footer.pricing': 'Pricing', 'footer.download': 'Download', 'footer.teams': 'D5 for Teams', 'footer.education': 'D5 for Education', 'footer.roadmap': 'Roadmap', 'footer.assets': 'Asset Library',
     'footer.support': 'Support', 'footer.help': 'Help Center', 'footer.requirements': 'System Requirements', 'footer.space': 'My Space',
     'footer.learn': 'Learn', 'footer.tutorial': 'Tutorials', 'footer.sample': 'Sample Scene', 'footer.gallery': 'Gallery', 'footer.blog': 'Blog', 'footer.webinars': 'Webinars', 'footer.certification': 'Certification', 'footer.instructor': 'D5 Instructor',
@@ -67,69 +79,143 @@ const copy = {
   },
 };
 
-/** C端权益 by tier — Arco vs Render metering stated explicitly. */
-function personalLists(lang, plan, tierIndex) {
+/** Latest C-end AI specs by 小/中/大 (mapped from rights sheet; Core excluded). */
+function personalAi(lang, plan, tierIndex) {
   const credits = tiers[tierIndex].credits.toLocaleString('en-US');
   if (lang === 'zh') {
+    if (plan === 'community') {
+      return [
+        '登录一次性领取 300 积分，有效期 365 天',
+        '并发 2 · 图片 1K / 视频 480P',
+        '部分模型 · 生成内容不可商用',
+        'D5 Arco AI 增强 / 放大：消耗积分',
+        'D5 渲染器 AI 增强 / 放大：不支持',
+        '不可充值',
+      ];
+    }
     const commonBasic = [
-      `每月 ${credits} 积分`,
-      'D5 Arco AI 创作 + Lite / 渲染器免费与社区能力',
+      `每月 ${credits} 积分（按月发放，未用完不累计）`,
       '全部模型 · AI 生成可商用',
       'D5 Arco AI 增强 / 放大：消耗积分',
       'D5 渲染器 AI 增强 / 放大：不支持',
     ];
     const commonPro = [
-      `每月 ${credits} 积分`,
-      'D5 Arco / Lite / 渲染器 / Works 专业工作流',
-      '在线串流 · 云素材 · 城市生成器等已开放能力',
+      `每月 ${credits} 积分（按月发放，未用完不累计）`,
       '全部模型 · AI 生成可商用',
       'D5 Arco AI 增强 / 放大：消耗积分',
       'D5 渲染器 AI 增强 / 放大：不消耗积分',
     ];
     if (plan === 'basic') {
-      const byTier = [
+      return [
         [...commonBasic, '并发 4 · 图片 2K / 视频 720P', '充值：标准价（无额外赠送），积分有效期 90 天'],
         [...commonBasic, '并发 10 · 图片 4K / 视频 4K', '充值：额外赠送 10%，积分有效期 90 天'],
         [...commonBasic, '并发不限 · 图片 4K / 视频 4K', '充值：额外赠送 10%，积分有效期 90 天'],
-      ];
-      return byTier[tierIndex];
+      ][tierIndex];
     }
-    const byTier = [
+    return [
       [...commonPro, '并发 4 · 图片 4K / 视频 4K', '充值：额外赠送 10%，积分有效期 180 天'],
       [...commonPro, '并发 10 · 图片 4K / 视频 4K', '充值：额外赠送 20%，积分有效期 180 天'],
       [...commonPro, '并发不限 · 图片 4K / 视频 4K', '充值：额外赠送 20%，积分有效期 180 天'],
+    ][tierIndex];
+  }
+  if (plan === 'community') {
+    return [
+      'One-time 300 credits on sign-in, valid 365 days',
+      'Concurrency 2 · image 1K / video 480P',
+      'Partial models · not for commercial use',
+      'D5 Arco enhance / upscale: consumes credits',
+      'D5 Render enhance / upscale: not supported',
+      'Top-up not available',
     ];
-    return byTier[tierIndex];
   }
   const commonBasic = [
-    `${credits} credits / month`,
-    'D5 Arco AI + free Lite / Render community capabilities',
+    `${credits} credits / month (issued monthly; unused do not roll over)`,
     'All models · AI output may be used commercially',
     'D5 Arco enhance / upscale: consumes credits',
     'D5 Render enhance / upscale: not supported',
   ];
   const commonPro = [
-    `${credits} credits / month`,
-    'D5 Arco / Lite / Render / Works professional workflow',
-    'Live streaming · cloud assets · city generator (where enabled)',
+    `${credits} credits / month (issued monthly; unused do not roll over)`,
     'All models · AI output may be used commercially',
     'D5 Arco enhance / upscale: consumes credits',
     'D5 Render enhance / upscale: does not consume credits',
   ];
   if (plan === 'basic') {
-    const byTier = [
+    return [
       [...commonBasic, 'Concurrency 4 · image 2K / video 720P', 'Top-up: list price (no bonus), credits valid 90 days'],
       [...commonBasic, 'Concurrency 10 · image 4K / video 4K', 'Top-up: +10% bonus, credits valid 90 days'],
       [...commonBasic, 'Unlimited concurrency · image 4K / video 4K', 'Top-up: +10% bonus, credits valid 90 days'],
-    ];
-    return byTier[tierIndex];
+    ][tierIndex];
   }
-  const byTier = [
+  return [
     [...commonPro, 'Concurrency 4 · image 4K / video 4K', 'Top-up: +10% bonus, credits valid 180 days'],
     [...commonPro, 'Concurrency 10 · image 4K / video 4K', 'Top-up: +20% bonus, credits valid 180 days'],
-    [...commonPro, 'Unlimited concurrency · image 4K / video 4K', 'Top-up: +20% bonus, credits valid 180 days'],
+    [...commonPro, 'Concurrency unlimited · image 4K / video 4K', 'Top-up: +20% bonus, credits valid 180 days'],
+  ][tierIndex];
+}
+
+/** Software / workflow features from live d5render.cn/pricing + master copy (non-AI). */
+function personalWorkflow(lang, plan) {
+  if (lang === 'zh') {
+    if (plan === 'community') {
+      return [
+        '无限项目数量',
+        '工作流同步插件',
+        '环境光照与天气编辑',
+        '自定义素材与材质编辑',
+        '植物笔刷 / 路径 / 散布',
+        '视频运镜和生长动画模板',
+        '图片 / 全景图 / 视频渲染',
+        'D5 Lite 免费功能衔接 · 官方素材 2,100+',
+      ];
+    }
+    if (plan === 'basic') {
+      return [
+        '包含社区版场景编辑与渲染基础能力',
+        'D5 Arco AI 创作衔接',
+        'D5 Lite 免费功能 · D5 渲染器社区版能力',
+        '通过文件导入 / 导出衔接各产品',
+        '官方素材库与自定义素材库',
+      ];
+    }
+    return [
+      '在社区版权益之上，解锁专业工作流',
+      'D5 Arco / Lite / 渲染器 / Works 专业功能',
+      '在线串流 · 16,000+ 云素材 · 城市生成器',
+      '舞台灯 / 投影灯 · VR / XR · 交互与全景展示不限',
+      '10 GB 云存储 · D5 Works 素材平台',
+      '通道图、品牌水印、视频序列帧与多帧率等专业输出',
+    ];
+  }
+  if (plan === 'community') {
+    return [
+      'Unlimited projects',
+      'Workflow sync plugins',
+      'Environment lighting & weather',
+      'Custom assets & material editing',
+      'Plant brush / path / scatter',
+      'Camera & growth animation templates',
+      'Image / panorama / video render',
+      'D5 Lite free features · 2,100+ official assets',
+    ];
+  }
+  if (plan === 'basic') {
+    return [
+      'Includes Community scene editing & base render capabilities',
+      'D5 Arco AI creation workflow',
+      'D5 Lite free features · D5 Render Community capabilities',
+      'Connect products via file import / export',
+      'Official asset library & custom libraries',
+    ];
+  }
+  return [
+    'Everything in Community, plus the professional workflow',
+    'D5 Arco / Lite / Render / Works professional features',
+    'Live streaming · 16,000+ cloud assets · city generator',
+    'Stage / projection lights · VR / XR · unlimited interactive & panorama',
+    '10 GB cloud storage · D5 Works',
+    'Channels, brand watermark, image sequences & multi frame-rate output',
   ];
-  return byTier[tierIndex];
 }
 
 const plans = {
@@ -137,28 +223,14 @@ const plans = {
     tierNames: ['小', '中', '大'],
     credits: '积分', perMonth: '/月', monthly: '/月订阅', annual: '/年订阅', free: '/免费体验',
     upgrade: '立即购买', download: '免费下载',
+    aiLabel: 'AI 权益', workflowLabel: 'D5 工作流权益',
     community: {
       desc: '免费探索 D5 创作',
       name: '社区版',
       info: '下载并登录，一次性获得 300 积分，有效期 365 天',
-      list: [
-        '一次性领取 300 积分（365 天）',
-        '并发 2 · 图片 1K / 视频 480P',
-        '部分模型 · 生成内容不可商用',
-        'D5 Arco AI 增强 / 放大：消耗积分',
-        'D5 渲染器 AI 增强 / 放大：不支持',
-        '不可充值',
-      ],
     },
     basic: { desc: '适合日常 AI 创作，按用量选档', name: '基础版' },
-    pro: { desc: '解锁专业工作流，连接设计与可视化', name: '专业版' },
-    compare: {
-      lead: 'D5 渲染功能',
-      cols: ['社区版', '基础版', '专业版', '团队 / 企业'],
-      pending: '按席位配置',
-      group: '场景编辑',
-      rows: ['无限场景数量', '主流文件格式导入'],
-    },
+    pro: { desc: '在社区版权益之上，解锁专业工作流', name: '专业版' },
     sliderLabel: '每月 AI 积分档位',
     seatYear: '积分 / 席 / 年',
   },
@@ -166,163 +238,219 @@ const plans = {
     tierNames: ['Small', 'Medium', 'Large'],
     credits: 'credits', perMonth: '/mo', monthly: '/month', annual: '/year', free: '/free',
     upgrade: 'Buy now', download: 'Free Download',
+    aiLabel: 'AI benefits', workflowLabel: 'D5 workflow benefits',
     community: {
       desc: 'Explore D5 creation for free',
       name: 'Community',
       info: 'Download and sign in for a one-time 300 credits, valid for 365 days',
-      list: [
-        'One-time 300 credits (365 days)',
-        'Concurrency 2 · image 1K / video 480P',
-        'Partial models · not for commercial use',
-        'D5 Arco enhance / upscale: consumes credits',
-        'D5 Render enhance / upscale: not supported',
-        'Top-up not available',
-      ],
     },
     basic: { desc: 'Everyday AI creation — pick by usage', name: 'Basic' },
-    pro: { desc: 'Unlock the professional workflow', name: 'Pro' },
-    compare: {
-      lead: 'D5 Render Features',
-      cols: ['Community', 'Basic', 'Pro', 'Teams / Enterprise'],
-      pending: 'By seat type',
-      group: 'Scene Editing',
-      rows: ['Unlimited number of scenes', 'Major file format imports'],
-    },
+    pro: { desc: 'Everything in Community, plus the professional workflow', name: 'Pro' },
     sliderLabel: 'Monthly AI credit tier',
     seatYear: 'credits / seat / year',
   },
 };
 
-const businessSeats = {
+const businessModules = {
   zh: [
     {
-      id: 'team-basic',
-      style: 'basic',
-      desc: '面向中小型团队 · 基础席位',
-      name: '团队版 · 基础席位',
-      credits: 20000,
-      cta: '获取团队方案',
-      list: [
-        '每席位每年 20,000 积分',
-        '并发 10',
-        'D5 Arco 基础功能 · Lite / 渲染器免费能力',
-        'D5 Arco AI 增强 / 放大：消耗积分',
-        'D5 渲染器 AI 增强 / 放大：消耗积分',
-        '单团队协作即将推出',
+      id: 'team',
+      title: '团队版',
+      subtitle: '面向中小型团队，按成员需要配置基础席位或专业席位；统一管理产品权益与 AI 用量。不展示公开自助价。',
+      seats: [
+        {
+          id: 'team-basic',
+          style: 'basic',
+          name: '基础席位',
+          desc: '适合以 Arco AI 创作为主的协作成员',
+          credits: 20000,
+          cta: '获取团队方案',
+          ai: [
+            '每席位每年 20,000 积分',
+            '并发 10 · 图片 4K / 视频 4K',
+            '全部模型 · AI 生成可商用',
+            'D5 Arco AI 增强 / 放大：消耗积分',
+            'D5 渲染器 AI 增强 / 放大：消耗积分',
+            '充值：企业价格，积分有效期 365 天',
+          ],
+          workflow: [
+            'D5 Arco 基础功能 · D5 Lite / 渲染器免费能力',
+            '通过文件导入 / 导出衔接',
+            '单团队协作即将推出',
+          ],
+        },
+        {
+          id: 'team-pro',
+          style: 'pro',
+          name: '专业席位',
+          desc: '适合需要专业可视化与交付的协作成员',
+          credits: 25000,
+          cta: '获取团队方案',
+          ai: [
+            '每席位每年 25,000 积分',
+            '并发 10 · 图片 4K / 视频 4K',
+            '全部模型 · AI 生成可商用',
+            'D5 Arco AI 增强 / 放大：消耗积分',
+            'D5 渲染器 AI 增强 / 放大：不消耗积分',
+            '团队积分池 · 充值企业价格，有效期 365 天',
+          ],
+          workflow: [
+            'D5 Arco / Lite 专业功能 · D5 渲染器团队版',
+            '在线串流 · 16,000+ 云素材 · 100 GB 云存储（团队）',
+            '交互演示多人编辑 · 空间 / 全景漫游不限',
+            '单团队协作即将推出',
+          ],
+        },
       ],
     },
     {
-      id: 'team-pro',
-      style: 'pro',
-      desc: '面向中小型团队 · 专业席位',
-      name: '团队版 · 专业席位',
-      credits: 25000,
-      cta: '获取团队方案',
-      list: [
-        '每席位每年 25,000 积分',
-        '并发 10',
-        '全产品专业能力 · 在线串流 · 团队积分池',
-        'D5 Arco AI 增强 / 放大：消耗积分',
-        'D5 渲染器 AI 增强 / 放大：不消耗积分',
-        '单团队协作即将推出',
-      ],
-    },
-    {
-      id: 'enterprise-basic',
-      style: 'basic',
-      desc: '面向大型客户 · 基础席位',
-      name: '企业版 · 基础席位',
-      credits: 22000,
-      cta: '获取企业方案',
-      list: [
-        '每席位每年 22,000 积分',
-        '并发不限',
-        'D5 Arco 基础功能 · Lite / 渲染器免费能力',
-        'D5 Arco AI 增强 / 放大：消耗积分',
-        'D5 渲染器 AI 增强 / 放大：消耗积分',
-        '多团队管理即将推出',
-      ],
-    },
-    {
-      id: 'enterprise-pro',
-      style: 'pro',
-      desc: '面向大型客户 · 专业席位',
-      name: '企业版 · 专业席位',
-      credits: 40000,
-      cta: '联系企业顾问',
-      list: [
-        '每席位每年 40,000 积分',
-        '并发不限',
-        '专业产品组合 · 在线串流 · 组织积分池',
-        'D5 Arco AI 增强 / 放大：消耗积分',
-        'D5 渲染器 AI 增强 / 放大：不消耗积分',
-        '多团队管理、SSO、组织权限和 API 即将推出',
+      id: 'enterprise',
+      title: '企业版',
+      subtitle: '面向大型客户与组织采购，按基础席位或专业席位配置；支持组织级用量与权限规划。不展示公开自助价。',
+      seats: [
+        {
+          id: 'enterprise-basic',
+          style: 'basic',
+          name: '基础席位',
+          desc: '组织内以 AI 创作为主的基础协作席位',
+          credits: 22000,
+          cta: '获取企业方案',
+          ai: [
+            '每席位每年 22,000 积分',
+            '并发不限 · 图片 4K / 视频 4K',
+            '全部模型 · AI 生成可商用',
+            'D5 Arco AI 增强 / 放大：消耗积分',
+            'D5 渲染器 AI 增强 / 放大：消耗积分',
+            '充值：企业价格，积分有效期 365 天',
+          ],
+          workflow: [
+            'D5 Arco 基础功能 · D5 Lite / 渲染器免费能力',
+            '通过文件导入 / 导出衔接',
+            '多团队管理即将推出',
+          ],
+        },
+        {
+          id: 'enterprise-pro',
+          style: 'pro',
+          name: '专业席位',
+          desc: '组织级专业交付与可视化席位',
+          credits: 40000,
+          cta: '联系企业顾问',
+          ai: [
+            '每席位每年 40,000 积分',
+            '并发不限 · 图片 4K / 视频 4K',
+            '全部模型 · AI 生成可商用',
+            'D5 Arco AI 增强 / 放大：消耗积分',
+            'D5 渲染器 AI 增强 / 放大：不消耗积分',
+            '组织积分池 · 充值企业价格，有效期 365 天',
+          ],
+          workflow: [
+            '专业产品组合 · 在线串流 · 组织积分与额度管理',
+            '16,000+ 云素材 · 团队 / 组织资产能力',
+            '多团队管理、SSO、组织权限和 API 即将推出',
+          ],
+        },
       ],
     },
   ],
   en: [
     {
-      id: 'team-basic',
-      style: 'basic',
-      desc: 'Teams · Basic seat',
-      name: 'Teams · Basic seat',
-      credits: 20000,
-      cta: 'Get a Teams plan',
-      list: [
-        '20,000 credits per seat / year',
-        'Concurrency 10',
-        'D5 Arco basic · free Lite / Render',
-        'D5 Arco enhance / upscale: consumes credits',
-        'D5 Render enhance / upscale: consumes credits',
-        'Single-team collaboration coming soon',
+      id: 'team',
+      title: 'Teams',
+      subtitle: 'For small and mid-size teams. Configure Basic or Pro seats — no public self-serve price.',
+      seats: [
+        {
+          id: 'team-basic',
+          style: 'basic',
+          name: 'Basic seat',
+          desc: 'For members focused on Arco AI creation',
+          credits: 20000,
+          cta: 'Get a Teams plan',
+          ai: [
+            '20,000 credits per seat / year',
+            'Concurrency 10 · image 4K / video 4K',
+            'All models · commercial AI output',
+            'D5 Arco enhance / upscale: consumes credits',
+            'D5 Render enhance / upscale: consumes credits',
+            'Top-up: enterprise pricing, credits valid 365 days',
+          ],
+          workflow: [
+            'D5 Arco basic · free Lite / Render',
+            'Connect via file import / export',
+            'Single-team collaboration coming soon',
+          ],
+        },
+        {
+          id: 'team-pro',
+          style: 'pro',
+          name: 'Pro seat',
+          desc: 'For members who need professional viz & delivery',
+          credits: 25000,
+          cta: 'Get a Teams plan',
+          ai: [
+            '25,000 credits per seat / year',
+            'Concurrency 10 · image 4K / video 4K',
+            'All models · commercial AI output',
+            'D5 Arco enhance / upscale: consumes credits',
+            'D5 Render enhance / upscale: does not consume credits',
+            'Team credit pool · enterprise top-up, 365-day validity',
+          ],
+          workflow: [
+            'D5 Arco / Lite Pro · D5 Render Teams',
+            'Live streaming · 16,000+ assets · 100 GB team cloud storage',
+            'Multi-user interactive demos · unlimited roam / panorama',
+            'Single-team collaboration coming soon',
+          ],
+        },
       ],
     },
     {
-      id: 'team-pro',
-      style: 'pro',
-      desc: 'Teams · Pro seat',
-      name: 'Teams · Pro seat',
-      credits: 25000,
-      cta: 'Get a Teams plan',
-      list: [
-        '25,000 credits per seat / year',
-        'Concurrency 10',
-        'Full product suite · live streaming · team credit pool',
-        'D5 Arco enhance / upscale: consumes credits',
-        'D5 Render enhance / upscale: does not consume credits',
-        'Single-team collaboration coming soon',
-      ],
-    },
-    {
-      id: 'enterprise-basic',
-      style: 'basic',
-      desc: 'Enterprise · Basic seat',
-      name: 'Enterprise · Basic seat',
-      credits: 22000,
-      cta: 'Get an Enterprise plan',
-      list: [
-        '22,000 credits per seat / year',
-        'Unlimited concurrency',
-        'D5 Arco basic · free Lite / Render',
-        'D5 Arco enhance / upscale: consumes credits',
-        'D5 Render enhance / upscale: consumes credits',
-        'Multi-team management coming soon',
-      ],
-    },
-    {
-      id: 'enterprise-pro',
-      style: 'pro',
-      desc: 'Enterprise · Pro seat',
-      name: 'Enterprise · Pro seat',
-      credits: 40000,
-      cta: 'Talk to an advisor',
-      list: [
-        '40,000 credits per seat / year',
-        'Unlimited concurrency',
-        'Pro suite · live streaming · org credit pool',
-        'D5 Arco enhance / upscale: consumes credits',
-        'D5 Render enhance / upscale: does not consume credits',
-        'Multi-team, SSO, org permissions and API coming soon',
+      id: 'enterprise',
+      title: 'Enterprise',
+      subtitle: 'For large organizations. Configure Basic or Pro seats with org-level usage planning — quote only.',
+      seats: [
+        {
+          id: 'enterprise-basic',
+          style: 'basic',
+          name: 'Basic seat',
+          desc: 'Org seat focused on AI creation',
+          credits: 22000,
+          cta: 'Get an Enterprise plan',
+          ai: [
+            '22,000 credits per seat / year',
+            'Unlimited concurrency · image 4K / video 4K',
+            'All models · commercial AI output',
+            'D5 Arco enhance / upscale: consumes credits',
+            'D5 Render enhance / upscale: consumes credits',
+            'Top-up: enterprise pricing, credits valid 365 days',
+          ],
+          workflow: [
+            'D5 Arco basic · free Lite / Render',
+            'Connect via file import / export',
+            'Multi-team management coming soon',
+          ],
+        },
+        {
+          id: 'enterprise-pro',
+          style: 'pro',
+          name: 'Pro seat',
+          desc: 'Org seat for professional delivery',
+          credits: 40000,
+          cta: 'Talk to an advisor',
+          ai: [
+            '40,000 credits per seat / year',
+            'Unlimited concurrency · image 4K / video 4K',
+            'All models · commercial AI output',
+            'D5 Arco enhance / upscale: consumes credits',
+            'D5 Render enhance / upscale: does not consume credits',
+            'Org credit pool · enterprise top-up, 365-day validity',
+          ],
+          workflow: [
+            'Pro suite · live streaming · org credit & quota management',
+            '16,000+ assets · team / org asset capabilities',
+            'Multi-team, SSO, org permissions and API coming soon',
+          ],
+        },
       ],
     },
   ],
@@ -331,11 +459,130 @@ const businessSeats = {
 const businessMeta = {
   zh: {
     preview: '当前为设计预览，尚未接入销售咨询，不会提交联系请求。',
-    note: 'B 端按席位年度报价，不展示公开自助价；具体合同价由销售确认。',
+    note: '按席位年度报价，具体合同价由销售确认。',
   },
   en: {
     preview: 'This is a design preview. Sales contact is not connected and no request will be submitted.',
-    note: 'Business plans are annual per-seat quotes with no public self-serve price; contract pricing is confirmed by sales.',
+    note: 'Annual per-seat quotes; contract pricing is confirmed by sales.',
+  },
+};
+
+const compareData = {
+  zh: {
+    lead: '功能与权益',
+    cols: ['社区版', '基础版', '专业版', '团队专业席位'],
+    groups: [
+      {
+        title: 'AI 权益',
+        rows: [
+          ['月度 / 席位积分', '登录 300（365 天）', '小/中/大 2k/6k/13k', '同档积分齐平', '25,000 / 席 / 年'],
+          ['并发任务', '2', '4 / 10 / 不限', '4 / 10 / 不限', '10'],
+          ['图片 / 视频上限', '1K / 480P', '2K·720P 起', '4K / 4K', '4K / 4K'],
+          ['模型与商用', '部分 · 不可商用', '全部 · 可商用', '全部 · 可商用', '全部 · 可商用'],
+          ['Arco 增强 / 放大', '消耗积分', '消耗积分', '消耗积分', '消耗积分'],
+          ['Render 增强 / 放大', '不支持', '不支持', '不消耗积分', '不消耗积分'],
+          ['充值', '不可充值', '标准价或 +10% · 90 天', '+10% / +20% · 180 天', '企业价格 · 365 天'],
+        ],
+      },
+      {
+        title: '场景编辑',
+        rows: [
+          ['无限场景 / 项目数量', true, true, true, true],
+          ['地理天空和天气系统', true, true, true, true],
+          ['植物笔刷、路径、散布', true, true, true, true],
+          ['视频运镜和生长动画模板', true, true, true, true],
+          ['舞台灯和投影灯', false, false, true, true],
+          ['城市生成', false, false, true, true],
+          ['项目合并', false, false, true, true],
+        ],
+      },
+      {
+        title: '渲染输出',
+        rows: [
+          ['图片和全景图渲染', '最高 16K', '最高 16K', '最高 16K', '最高 16K'],
+          ['基础视频输出', '最高 4K', '最高 4K', '最高 4K', '最高 8K'],
+          ['通道图 / 品牌水印 / 序列帧', false, false, true, true],
+          ['VR / 双目立体 / XR', false, false, true, true],
+          ['交互演示', '创建 1 个', '创建 1 个', '不限', '不限，支持多人编辑'],
+          ['空间漫游和全景漫游', '创建 1 个', '创建 1 个', '不限', '不限'],
+        ],
+      },
+      {
+        title: '素材库与云存储',
+        rows: [
+          ['官方素材', '2,100+', '2,100+', '16,000+', '16,000+'],
+          ['自定义素材库', true, true, true, true],
+          ['D5 Works', false, false, true, true],
+          ['团队资产库', false, false, false, true],
+          ['云存储空间', '限量', '限量', '10 GB', '100 GB'],
+        ],
+      },
+      {
+        title: '团队协作',
+        rows: [
+          ['项目多人编辑', false, false, false, true],
+          ['评论备注 / 团队后台', false, false, false, '即将推出'],
+        ],
+      },
+    ],
+  },
+  en: {
+    lead: 'Features & benefits',
+    cols: ['Community', 'Basic', 'Pro', 'Teams Pro seat'],
+    groups: [
+      {
+        title: 'AI benefits',
+        rows: [
+          ['Monthly / seat credits', 'Sign-in 300 (365d)', 'S/M/L 2k/6k/13k', 'Same tier credits', '25,000 / seat / year'],
+          ['Concurrency', '2', '4 / 10 / unlimited', '4 / 10 / unlimited', '10'],
+          ['Image / video max', '1K / 480P', 'From 2K·720P', '4K / 4K', '4K / 4K'],
+          ['Models & commercial', 'Partial · no', 'All · yes', 'All · yes', 'All · yes'],
+          ['Arco enhance / upscale', 'Consumes', 'Consumes', 'Consumes', 'Consumes'],
+          ['Render enhance / upscale', 'N/A', 'N/A', 'No consume', 'No consume'],
+          ['Top-up', 'Unavailable', 'List or +10% · 90d', '+10% / +20% · 180d', 'Enterprise · 365d'],
+        ],
+      },
+      {
+        title: 'Scene editing',
+        rows: [
+          ['Unlimited scenes / projects', true, true, true, true],
+          ['Geo sky & weather', true, true, true, true],
+          ['Plant brush / path / scatter', true, true, true, true],
+          ['Camera & growth templates', true, true, true, true],
+          ['Stage & projection lights', false, false, true, true],
+          ['City generator', false, false, true, true],
+          ['Project merge', false, false, true, true],
+        ],
+      },
+      {
+        title: 'Render output',
+        rows: [
+          ['Image & panorama', 'Up to 16K', 'Up to 16K', 'Up to 16K', 'Up to 16K'],
+          ['Base video output', 'Up to 4K', 'Up to 4K', 'Up to 4K', 'Up to 8K'],
+          ['Channels / watermark / sequences', false, false, true, true],
+          ['VR / stereo / XR', false, false, true, true],
+          ['Interactive demos', 'Create 1', 'Create 1', 'Unlimited', 'Unlimited, multi-edit'],
+          ['Space & panorama roam', 'Create 1', 'Create 1', 'Unlimited', 'Unlimited'],
+        ],
+      },
+      {
+        title: 'Assets & cloud',
+        rows: [
+          ['Official assets', '2,100+', '2,100+', '16,000+', '16,000+'],
+          ['Custom asset library', true, true, true, true],
+          ['D5 Works', false, false, true, true],
+          ['Team asset library', false, false, false, true],
+          ['Cloud storage', 'Limited', 'Limited', '10 GB', '100 GB'],
+        ],
+      },
+      {
+        title: 'Team collaboration',
+        rows: [
+          ['Multi-user project editing', false, false, false, true],
+          ['Comments / team admin', false, false, false, 'Coming soon'],
+        ],
+      },
+    ],
   },
 };
 
@@ -496,6 +743,22 @@ function listItems(list) {
     : `<li>${item}</li>`).join('');
 }
 
+function benefitBlocks(aiList, workflowList) {
+  const p = P();
+  return `
+    <div class="benefit-stack">
+      <div class="benefit-block benefit-ai">
+        <div class="benefit-label">${p.aiLabel}</div>
+        <ul class="plan-list" data-ai-list>${listItems(aiList)}</ul>
+      </div>
+      <div class="benefit-divider" aria-hidden="true"></div>
+      <div class="benefit-block benefit-workflow">
+        <div class="benefit-label">${p.workflowLabel}</div>
+        <ul class="plan-list" data-workflow-list>${listItems(workflowList)}</ul>
+      </div>
+    </div>`;
+}
+
 function stopRolling() {
   activeNumbers.forEach(el => {
     const number = rollingNumbers.get(el);
@@ -509,23 +772,36 @@ function renderPlans() {
   stopRolling();
   const grid = $('#plan-grid');
   grid.classList.toggle('is-team', state.audience === 'team');
+  const edu = document.querySelector('.education');
+  if (edu) edu.hidden = state.audience === 'team';
+  const billing = document.querySelector('.billing');
+  if (billing) billing.hidden = state.audience === 'team';
   if (state.audience === 'team') {
-    const seats = businessSeats[state.lang];
+    const modules = businessModules[state.lang];
     const meta = businessMeta[state.lang];
     const p = P();
-    grid.innerHTML = seats.map(seat => `
-      <article class="plan-card ${seat.style} seat-card" data-seat="${seat.id}">
-        <div class="plan-top">
-          <div class="plan-title">
-            <p class="plan-desc">${seat.desc}</p>
-            <div class="plan-name"><h2>${seat.name}</h2></div>
-          </div>
-          <div class="plan-info"><p>${seat.credits.toLocaleString('en-US')} ${p.seatYear}</p></div>
-          <p class="seat-note">${meta.note}</p>
+    grid.innerHTML = modules.map(mod => `
+      <section class="biz-module" data-biz-module="${mod.id}">
+        <div class="biz-module-head">
+          <h2>${mod.title}</h2>
+          <p>${mod.subtitle}</p>
         </div>
-        <button type="button" class="plan-button" data-contact-sales="${seat.id}">${seat.cta}</button>
-        <ul class="plan-list">${listItems(seat.list)}</ul>
-      </article>`).join('');
+        <div class="biz-seat-grid">
+          ${mod.seats.map(seat => `
+            <article class="plan-card ${seat.style} seat-card" data-seat="${seat.id}">
+              <div class="plan-top">
+                <div class="plan-title">
+                  <p class="plan-desc">${seat.desc}</p>
+                  <div class="plan-name"><h2>${seat.name}</h2></div>
+                </div>
+                <div class="plan-info"><p>${seat.credits.toLocaleString('en-US')} ${p.seatYear}</p></div>
+                <p class="seat-note">${meta.note}</p>
+              </div>
+              <button type="button" class="plan-button" data-contact-sales="${seat.id}">${seat.cta}</button>
+              ${benefitBlocks(seat.ai, seat.workflow)}
+            </article>`).join('')}
+        </div>
+      </section>`).join('');
     return;
   }
   const p = P();
@@ -558,7 +834,7 @@ function renderPlans() {
         </div>
       </div>
       <button type="button" class="plan-button">${p.upgrade}</button>
-      <ul class="plan-list" data-plan-list="${id}">${listItems(personalLists(state.lang, id, i))}</ul>
+      ${benefitBlocks(personalAi(state.lang, id, i), personalWorkflow(state.lang, id))}
     </article>`;
   };
 
@@ -571,7 +847,7 @@ function renderPlans() {
       <div class="plan-price"><span class="price-value">￥0</span><span class="price-period">${p.free}</span></div>
       <div class="plan-info"><p>${p.community.info}</p></div>
       <a class="plan-button" href="#pricing">${p.download}</a>
-      <ul class="plan-list">${listItems(p.community.list)}</ul>
+      ${benefitBlocks(personalAi(state.lang, 'community', 0), personalWorkflow(state.lang, 'community'))}
     </article>
     ${paidCard('basic')}
     ${paidCard('pro')}`;
@@ -612,8 +888,10 @@ function syncPaidCard(plan) {
     tag.hidden = state.billing !== 'monthly';
   }
 
-  const list = card.querySelector(`[data-plan-list="${plan}"]`);
-  if (list) list.innerHTML = listItems(personalLists(state.lang, plan, i));
+  const aiList = card.querySelector('[data-ai-list]');
+  if (aiList) aiList.innerHTML = listItems(personalAi(state.lang, plan, i));
+  const wfList = card.querySelector('[data-workflow-list]');
+  if (wfList) wfList.innerHTML = listItems(personalWorkflow(state.lang, plan));
 }
 
 function syncTier(scope) {
@@ -628,9 +906,14 @@ function syncTier(scope) {
   if (discount && state.audience !== 'team') discount.textContent = billingDiscountText();
 }
 
+function cellHtml(value) {
+  if (value === true) return '<img src="assets/figma/check-circle.svg" alt="">';
+  if (value === false) return '<span class="compare-empty">—</span>';
+  return `<span class="compare-text">${value}</span>`;
+}
+
 function renderCompare() {
-  const c = P().compare;
-  const check = '<img src="assets/figma/check-circle.svg" alt="">';
+  const c = compareData[state.lang];
   $('#compare').innerHTML = `
     <table class="compare-table">
       <thead class="compare-head"><tr>
@@ -638,8 +921,13 @@ function renderCompare() {
         ${c.cols.map(name => `<th scope="col" class="col">${name}</th>`).join('')}
       </tr></thead>
       <tbody class="compare-body">
-        <tr><th colspan="5" class="compare-group"><img src="assets/figma/caret-down.svg" alt="">${c.group}</th></tr>
-        ${c.rows.map(label => `<tr class="compare-row"><th scope="row" class="lead">${label}</th><td class="col">${check}</td><td class="col">${check}</td><td class="col">${check}</td><td class="col" title="${c.pending}">—</td></tr>`).join('')}
+        ${c.groups.map(group => `
+          <tr><th colspan="5" class="compare-group"><img src="assets/figma/caret-down.svg" alt="">${group.title}</th></tr>
+          ${group.rows.map(row => {
+            const [label, ...vals] = row;
+            return `<tr class="compare-row"><th scope="row" class="lead">${label}</th>${vals.map(v => `<td class="col">${cellHtml(v)}</td>`).join('')}</tr>`;
+          }).join('')}
+        `).join('')}
       </tbody>
     </table>`;
 }
@@ -705,9 +993,10 @@ document.addEventListener('click', e => {
     return;
   }
   if (btn.hasAttribute('data-contact-sales')) {
-    const seat = businessSeats[state.lang].find(s => s.id === btn.dataset.contactSales);
+    const seat = businessModules[state.lang].flatMap(m => m.seats).find(s => s.id === btn.dataset.contactSales);
     const meta = businessMeta[state.lang];
-    $('#announcer').textContent = `${seat ? seat.name : ''} · ${meta.preview}`;
+    const mod = businessModules[state.lang].find(m => m.seats.some(s => s.id === btn.dataset.contactSales));
+    $('#announcer').textContent = `${mod ? mod.title + ' · ' : ''}${seat ? seat.name : ''} · ${meta.preview}`;
     return;
   }
   if (btn.dataset.audience) {
