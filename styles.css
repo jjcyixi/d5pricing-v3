@@ -62,62 +62,62 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 }
 .seat-note { margin: 0; font-size: 13px; line-height: 18px; color: var(--text-80); }
 
-/* Business modules: Team / Enterprise — side-by-side; seat fonts match personal cards */
+/* Business modules: Team / Enterprise — version titles LARGE (personal plan-name scale);
+   seat cards SMALLER / compact secondary hierarchy */
 .biz-module {
-  display: flex; flex-direction: column; gap: 12px;
-  padding: 14px 12px 16px;
+  display: flex; flex-direction: column; gap: 14px;
+  padding: 18px 14px 16px;
   border: 1px solid var(--border-10);
-  border-radius: 14px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, .02);
   min-width: 0;
 }
-.biz-module-head { display: flex; flex-direction: column; gap: 4px; }
-.biz-module-head h2 { font-size: 20px; font-weight: 600; line-height: 28px; }
-.biz-module-head p { font-size: 14px; line-height: 22px; color: var(--text-60); }
-.biz-module-head .biz-module-note { margin: 2px 0 0; font-size: 13px; line-height: 18px; color: var(--text-60); opacity: .9; }
+.biz-module-head { display: flex; flex-direction: column; gap: 6px; padding: 0 2px 2px; }
+/* Version = section hero: match personal .plan-name h2 (32/40) */
+.biz-module-head h2 { font-size: 32px; font-weight: 500; line-height: 40px; letter-spacing: -.02em; }
+.biz-module-head p { font-size: 14px; font-weight: 500; line-height: 22px; color: var(--text-60); }
+.biz-module-head .biz-module-note { margin: 2px 0 0; font-size: 12px; line-height: 18px; color: var(--text-60); opacity: .85; }
 .biz-seat-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 10px;
   align-items: stretch;
 }
-/* Narrower seat cards (less padding) but same type scale as personal plan cards */
+/* Compact seat product cards — secondary to version header */
 .plan-card.seat-card {
-  gap: 12px;
-  padding: 12px 10px 14px;
+  gap: 10px;
+  padding: 12px 10px 12px;
   border-width: 1px;
   border-radius: 12px;
 }
-.plan-card.seat-card .plan-zone-a { gap: 12px; padding-bottom: 0; }
-.plan-card.seat-card .plan-title { gap: 6px; }
-/* Inherit personal: plan-desc 14/22, plan-name h2 32/40 — no tiny overrides */
-.plan-card.seat-card .plan-desc { font-size: 14px; font-weight: 500; line-height: 22px; color: var(--text-80); }
-.plan-card.seat-card .plan-name h2 { font-size: 32px; font-weight: 500; line-height: 40px; }
+.plan-card.seat-card .plan-zone-a { gap: 8px; padding-bottom: 0; }
+.plan-card.seat-card .plan-title { gap: 4px; }
+.plan-card.seat-card .plan-name h2 { font-size: 18px; font-weight: 600; line-height: 24px; letter-spacing: -.01em; }
+.plan-card.seat-card .plan-desc { font-size: 12px; font-weight: 500; line-height: 18px; color: var(--text-60); }
 .plan-card.seat-card .seat-capacity {
   margin-top: 0;
-  padding: 12px 12px;
-  gap: 4px;
-  border-radius: 10px;
+  padding: 8px 10px;
+  gap: 2px;
+  border-radius: 8px;
 }
-.plan-card.seat-card .seat-capacity .capacity-title { font-size: 18px; font-weight: 600; line-height: 24px; }
-/* Inherit personal button scale: 48px / 16px */
+.plan-card.seat-card .seat-capacity .capacity-title { font-size: 14px; font-weight: 600; line-height: 20px; }
 .plan-card.seat-card .plan-button {
-  height: 48px;
-  padding: 12px;
-  font-size: 16px;
+  height: 36px;
+  padding: 8px 10px;
+  font-size: 13px;
   font-weight: 500;
   border-radius: 9999px;
 }
 .plan-card.seat-card .seat-bullets { margin-top: 0; gap: 0; }
 .plan-card.seat-card .seat-bullets li {
   min-height: 0;
-  padding: 6px 0;
-  font-size: 13px;
-  line-height: 20px;
-  gap: 10px;
-  color: rgba(255, 255, 255, .88);
+  padding: 4px 0;
+  font-size: 12px;
+  line-height: 18px;
+  gap: 8px;
+  color: rgba(255, 255, 255, .82);
 }
-.plan-card.seat-card .seat-bullets li .check { width: 16px; height: 16px; margin-top: 2px; }
+.plan-card.seat-card .seat-bullets li .check { width: 14px; height: 14px; margin-top: 2px; }
 
 /* Lovart-inspired card zones + AI/workflow split */
 .plan-zone-a { display: flex; flex-direction: column; gap: 16px; padding-bottom: 4px; }
@@ -325,9 +325,11 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 @media (max-width: 640px) {
   .plan-grid { grid-template-columns: minmax(0, 1fr); }
   .biz-seat-grid { grid-template-columns: minmax(0, 1fr); }
-  .biz-module { padding: 12px 10px 14px; }
-  .biz-module-head h2 { font-size: 18px; line-height: 24px; }
-  .plan-card.seat-card .plan-name h2 { font-size: 28px; line-height: 36px; }
+  .biz-module { padding: 14px 12px 14px; }
+  .biz-module-head h2 { font-size: 28px; line-height: 36px; }
+  .plan-card.seat-card .plan-name h2 { font-size: 16px; line-height: 22px; }
+  .plan-card.seat-card .plan-desc { font-size: 12px; line-height: 18px; }
+  .plan-card.seat-card .plan-button { height: 34px; font-size: 12px; }
   .faq-inner { grid-template-columns: minmax(0, 1fr); }
   .faq-title { min-height: 0; padding: 0 24px 16px; }
 }
