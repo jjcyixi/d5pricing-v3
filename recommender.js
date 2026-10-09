@@ -1,5 +1,4 @@
-// Three-step plan finder. Monthly and annual prices reuse the existing pricing data.
-// Default recommendation: design planning + 3D rendering, Standard, top-up benefits.
+// Three-step plan finder. Uses independent personal tiers (小/中/大) and latest口径.
 (() => {
   const selection = { goals: new Set([2, 3]), tier: 1, manualTier: false, offer: '2' };
   const root = document.querySelector('#plan-finder');
@@ -10,13 +9,13 @@
       goals: ['个人兴趣及探索', 'AI 图片与视频生成', '设计项目策划和汇报', '更高品质、更可控的 3D 渲染', '可漫游及互动的 3D 演示'],
       goalHints: ['尝试 AI 创作，探索灵感和不同表达', '生成图片、视频，进行多轮创意迭代', '辅助方案构思、视觉表达和项目汇报', '使用更多 D5 产品，完成更精细的渲染表达', '制作可漫游、可互动的空间演示'],
       usage: ['偶尔尝试', '稳定创作', '高频交付'], offers: ['首月优惠', '长期订阅更省', '充值补充积分'],
-      offerHints: ['降低第一次购买的成本', '持续使用，关注长期成本', '按需充值补充 AI 积分，规则以充值页为准'],
+      offerHints: ['降低第一次购买的成本', '持续使用，关注长期成本', '按需充值；赠送比例与有效期随方案档位变化'],
       monthly: '按月', annual: '按年', perYear: '/年', equivalent: '折合', annualTotal: '年付总额', annualSaving: '较连续月付 12 个月节省', perMonth: '/月', credits: 'AI 积分',
       recommended: '推荐方案', why: '推荐理由',
-      firstOffer: '首月优惠需确认购买资格，当前按常规月价展示；后续正常价格不变。', firstOfferAnnual: '首月优惠适用于符合资格的月付购买，当前展示年付价格。',
-      basicReason: '适合日常 AI 创作：按用量选择小 / 中 / 大积分档，完成灵感探索、图片与视频迭代，以及设计策划和汇报。',
-      proReason: '专业版解锁专业工作流，同档积分与基础版一致，覆盖从创意到可视化交付的完整链路。',
-      topupNote: '充值可补充 D5 AI 积分，不改变版本功能；到账积分与有效期以充值确认页为准。',
+      firstOffer: '首月优惠需确认购买资格；月付时页面展示首月价与后续常规月价。', firstOfferAnnual: '首月优惠适用于符合资格的月付购买，当前展示年付价格；年购积分按月发放。',
+      basicReason: '适合日常 AI 创作：按小 / 中 / 大选积分与并发、分辨率档位。D5 Arco 增强 / 放大消耗积分；基础版不支持渲染器侧 AI 增强。',
+      proReason: '专业版解锁专业工作流（含渲染器 / Works 等已开放能力）。同档积分与基础版一致；Arco 增强仍耗积分，渲染器侧增强不耗积分。',
+      topupNote: '充值不改变版本功能。基础版充值积分有效期 90 天（中 / 大额外赠送 10%）；专业版 180 天（小 10%、中 / 大 20%），以充值确认页为准。',
       choose: '选择', proChoose: '开始使用 D5 工作流', preview: '方案预览', previewNote: '购买通道尚未接入。你可以继续调整方案，当前不会创建订单或扣款。', close: '继续调整',
     },
     en: {
@@ -25,13 +24,13 @@
       goals: ['Personal exploration', 'AI image and video creation', 'Design planning and presentations', 'Higher-quality, more controllable 3D rendering', 'Walkthroughs and interactive 3D presentations'],
       goalHints: ['Explore inspiration and new creative styles', 'Generate images and videos and iterate on ideas', 'Develop concepts, visuals and project presentations', 'Use more D5 products for refined rendering', 'Create immersive, interactive spatial presentations'],
       usage: ['Explore occasionally', 'Create regularly', 'Deliver at high volume'], offers: ['First-month offer', 'Long-term savings', 'Top up credits'],
-      offerHints: ['Lower the cost of your first purchase', 'Reduce costs over continued use', 'Add AI credits as needed; rules follow the top-up page'],
+      offerHints: ['Lower the cost of your first purchase', 'Reduce costs over continued use', 'Top up as needed; bonus and validity follow plan tier'],
       monthly: 'Monthly', annual: 'Yearly', perYear: '/year', equivalent: 'Equivalent to', annualTotal: 'Annual total', annualSaving: 'Saved compared with 12 monthly payments', perMonth: '/mo', credits: 'AI credits',
       recommended: 'Recommended plan', why: 'Why we recommend it',
-      firstOffer: 'First-month offers depend on eligibility. Regular monthly pricing is shown, including the ongoing price.', firstOfferAnnual: 'First-month offers apply to eligible monthly purchases. Yearly pricing is currently shown.',
-      basicReason: 'Built for everyday AI creation: pick Small / Medium / Large by usage for exploration, image and video iteration, and design presentations.',
-      proReason: 'Pro unlocks the professional workflow with the same credit tiers as Basic, covering ideation through visualization delivery.',
-      topupNote: 'Top-ups add D5 AI credits without changing plan features; amount and validity follow the top-up confirmation page.',
+      firstOffer: 'First-month offers depend on eligibility. Monthly cards show first-month and ongoing prices.', firstOfferAnnual: 'First-month offers apply to eligible monthly purchases. Yearly pricing is shown; credits are issued monthly.',
+      basicReason: 'For everyday AI creation: pick Small / Medium / Large for credits, concurrency and resolution. Arco enhance/upscale consumes credits; Basic does not support Render-side enhance.',
+      proReason: 'Pro unlocks the professional workflow. Same credit tiers as Basic; Arco enhance still consumes credits, while Render-side enhance does not.',
+      topupNote: 'Top-ups do not change plan features. Basic top-up credits last 90 days (+10% on Medium/Large); Pro lasts 180 days (+10% Small, +20% Medium/Large). Confirmation page wins.',
       choose: 'Choose', proChoose: 'Start using D5 Workflow', preview: 'Plan preview', previewNote: 'Checkout is not connected yet. You can keep adjusting your plan; no order or charge will be created.', close: 'Keep exploring',
     },
   };
@@ -146,7 +145,6 @@
     else return;
     sync();
   });
-  // Match the card slider: tiers sit at 33.333%, 66.666% and 100%.
   let pointerDrag = null;
   function setPointerTier(slider, x) {
     const bounds = slider.getBoundingClientRect();
