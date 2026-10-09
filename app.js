@@ -720,6 +720,7 @@ function renderPlans() {
             </article>`).join('')}
         </div>
       </section>`).join('');
+    if (window.D5Flows) window.D5Flows.afterPricingRender();
     return;
   }
   const p = P();
@@ -751,7 +752,7 @@ function renderPlans() {
           </div>
         </div>
       </div>
-      <button type="button" class="plan-button">${p.upgrade}</button>
+      <button type="button" class="plan-button" data-flow-buy="${id}">${p.upgrade}</button>
       ${capacityBlock(id, i)}
       ${benefitBlocks(personalAi(state.lang, id, i), personalWorkflow(state.lang, id))}
     </article>`;
@@ -773,6 +774,7 @@ function renderPlans() {
     </article>
     ${paidCard('basic')}
     ${paidCard('pro')}`;
+  if (window.D5Flows) window.D5Flows.afterPricingRender();
 }
 
 function syncPaidCard(plan) {
@@ -828,11 +830,12 @@ function syncPaidCard(plan) {
 
 function syncTier(scope) {
   if (state.audience === 'team') return;
+  const sync = (typeof window.syncPaidCard === 'function') ? window.syncPaidCard : syncPaidCard;
   if (scope === 'basic' || scope === 'pro') {
-    syncPaidCard(scope);
+    sync(scope);
   } else {
-    syncPaidCard('basic');
-    syncPaidCard('pro');
+    sync('basic');
+    sync('pro');
   }
   const discount = $('[data-i18n="billing.discount"]');
   if (discount && state.audience !== 'team') discount.textContent = billingDiscountText();
@@ -947,5 +950,20 @@ Object.defineProperty(state, 'tier', {
   get() { return state.basicTier; },
   set(v) { state.basicTier = v; },
 });
+
+// Expose for flows.js (SPA checkout / edit mode)
+window.state = state;
+window.tiers = tiers;
+window.plans = plans;
+window.businessModules = businessModules;
+window.copy = copy;
+window.compareData = compareData;
+window.renderPlans = renderPlans;
+window.renderCompare = renderCompare;
+window.renderAll = renderAll;
+window.syncPaidCard = syncPaidCard;
+window.syncTier = syncTier;
+window.selectTier = selectTier;
+window.applyLanguage = applyLanguage;
 
 renderAll();

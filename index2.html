@@ -7,22 +7,26 @@
   <meta name="description" content="选择适合你的 D5 方案，比较个人版本、AI 用量与设计工作流权益。">
   <title>D5 · 选择你的创作方案</title>
   <link rel="icon" href="assets/d5-logo.png">
-  <link rel="stylesheet" href="styles.css?v=20261009-lovart-clean">
-  <link rel="stylesheet" href="recommender.css?v=20261009-lovart-clean">
+  <link rel="stylesheet" href="styles.css?v=20261009-flows-edit">
+  <link rel="stylesheet" href="recommender.css?v=20261009-flows-edit">
+  <link rel="stylesheet" href="flows.css?v=20261009-flows-edit">
 </head>
-<body>
+<body data-route="pricing">
+  <div class="demo-toolbar" id="demo-toolbar" aria-label="演示与编辑工具栏"></div>
+
   <header class="global-nav">
-    <a class="brand" href="#pricing" aria-label="D5"><img src="assets/brand.webp" alt=""><span>D5</span></a>
+    <a class="brand" href="#pricing" data-nav="pricing" aria-label="D5"><img src="assets/brand.webp" alt=""><span>D5</span></a>
     <fieldset class="language-switch" aria-label="Language">
       <button type="button" data-lang="zh" aria-pressed="true">中文</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </fieldset>
   </header>
 
+  <div id="view-pricing">
   <main id="main">
     <section class="hero container">
-      <h1 data-i18n="hero.title">按创作用量，选择适合你的方案</h1>
-      <p data-i18n="hero.subtitle">从第一次灵感探索，到专业交付；小 / 中 / 大按用量选档</p>
+      <h1 data-i18n="hero.title" data-edit="hero.title">按创作用量，选择适合你的方案</h1>
+      <p data-i18n="hero.subtitle" data-edit="hero.subtitle">从第一次灵感探索，到专业交付；小 / 中 / 大按用量选档</p>
     </section>
 
     <section class="pricing container" id="pricing">
@@ -40,17 +44,17 @@
       <div class="plan-grid" id="plan-grid"></div>
       <div class="education">
         <div class="education-inner">
-          <strong data-i18n="education.title">D5学生版</strong>
-          <span data-i18n="education.subtitle">专为高校在校生推出的特别权益方案，助力教与学</span>
-          <a href="#pricing" data-i18n="education.button">立即申请</a>
+          <strong data-i18n="education.title" data-edit="education.title">D5学生版</strong>
+          <span data-i18n="education.subtitle" data-edit="education.subtitle">专为高校在校生推出的特别权益方案，助力教与学</span>
+          <a href="#pricing" data-i18n="education.button" data-edit="education.button">立即申请</a>
         </div>
       </div>
     </section>
 
     <section class="section container" id="workflow" aria-labelledby="workflow-title">
       <div class="section-head">
-        <h2 id="workflow-title">方案推荐</h2>
-        <p>让创作走的更远</p>
+        <h2 id="workflow-title" data-edit="workflow.title">方案推荐</h2>
+        <p data-edit="workflow.subtitle">让创作走的更远</p>
       </div>
       <div class="plan-finder" id="plan-finder"></div>
     </section>
@@ -58,8 +62,8 @@
     <section class="section container" id="comparison" aria-labelledby="comparison-title">
       <div class="section-head row">
         <div>
-          <h2 id="comparison-title" data-i18n="comparison.title">完整功能对比</h2>
-          <p data-i18n="comparison.subtitle">详细对比套餐及功能权益</p>
+          <h2 id="comparison-title" data-i18n="comparison.title" data-edit="comparison.title">完整功能对比</h2>
+          <p data-i18n="comparison.subtitle" data-edit="comparison.subtitle">详细对比套餐及功能权益</p>
         </div>
       </div>
       <div class="compare-scroll" tabindex="0" role="region" aria-labelledby="comparison-title"><div class="compare" id="compare"></div></div>
@@ -69,24 +73,29 @@
       <div class="container faq-inner">
         <div class="faq-title"><h2 id="faq-title">FAQ</h2></div>
         <div class="faq-list">
-          <details><summary><span data-i18n="faq.q1">各档方案只差积分吗？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a1">不只积分。小 / 中 / 大还会影响并发、输出分辨率、充值赠送与积分有效期等；基础版与专业版同档积分一致，但在产品工作流与计量上不同——D5 Arco 的 AI 增强 / 放大消耗积分；专业版下 D5 渲染器的 AI 增强 / 放大不消耗积分，基础版不支持渲染器侧增强。具体以当前方案与功能入口说明为准。</p></details>
-          <details><summary><span data-i18n="faq.q2">年购积分如何发放？会自动续费吗？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a2">年购一次支付，积分仍按月发放，未用完不累计到下一积分月。当前为到期不自动续费；是否自动续费以购买确认页为准。</p></details>
-          <details><summary><span data-i18n="faq.q3">充值规则是什么？团队 / 企业怎么买？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a3">充值可补充 D5 AI 积分，不改变版本功能。社区版不可充值；基础版按档位为标准价或额外赠送，充值积分有效期 90 天；专业版额外赠送更高，有效期 180 天，均以充值确认页为准。团队版与企业版为两个独立版本模块，各自提供基础席位与专业席位，不展示公开自助价，请联系销售获取报价。</p></details>
-          <details><summary><span data-i18n="faq.q4">如何获得发票凭证？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a4">成功订购后，可前往 D5 用户中心 · 发票服务 申请开票。</p></details>
-          <details><summary><span data-i18n="faq.q5">专业版用户能否升级或加入团队版？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a5">专业版用户如需升级为团队版，可联系我们了解详情。若团队已开通团队版，可联系团队管理员邀请你加入。</p></details>
-          <details><summary><span data-i18n="faq.q6">购买及订阅的详细规则？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a6">查看 D5 订阅规则（d5render.cn/subscription-rules）。其他购买问题可进入帮助中心向我们提问。</p></details>
+          <details><summary><span data-i18n="faq.q1" data-edit="faq.q1">各档方案只差积分吗？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a1" data-edit="faq.a1">不只积分。小 / 中 / 大还会影响并发、输出分辨率、充值赠送与积分有效期等；基础版与专业版同档积分一致，但在产品工作流与计量上不同——D5 Arco 的 AI 增强 / 放大消耗积分；专业版下 D5 渲染器的 AI 增强 / 放大不消耗积分，基础版不支持渲染器侧增强。具体以当前方案与功能入口说明为准。</p></details>
+          <details><summary><span data-i18n="faq.q2" data-edit="faq.q2">年购积分如何发放？会自动续费吗？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a2" data-edit="faq.a2">年购一次支付，积分仍按月发放，未用完不累计到下一积分月。当前为到期不自动续费；是否自动续费以购买确认页为准。</p></details>
+          <details><summary><span data-i18n="faq.q3" data-edit="faq.q3">充值规则是什么？团队 / 企业怎么买？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a3" data-edit="faq.a3">充值可补充 D5 AI 积分，不改变版本功能。社区版不可充值；基础版按档位为标准价或额外赠送，充值积分有效期 90 天；专业版额外赠送更高，有效期 180 天，均以充值确认页为准。团队版与企业版为两个独立版本模块，各自提供基础席位与专业席位，不展示公开自助价，请联系销售获取报价。</p></details>
+          <details><summary><span data-i18n="faq.q4" data-edit="faq.q4">如何获得发票凭证？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a4" data-edit="faq.a4">成功订购后，可前往 D5 用户中心 · 发票服务 申请开票。</p></details>
+          <details><summary><span data-i18n="faq.q5" data-edit="faq.q5">专业版用户能否升级或加入团队版？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a5" data-edit="faq.a5">专业版用户如需升级为团队版，可联系我们了解详情。若团队已开通团队版，可联系团队管理员邀请你加入。</p></details>
+          <details><summary><span data-i18n="faq.q6" data-edit="faq.q6">购买及订阅的详细规则？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a6" data-edit="faq.a6">查看 D5 订阅规则（d5render.cn/subscription-rules）。其他购买问题可进入帮助中心向我们提问。</p></details>
         </div>
       </div>
     </section>
   </main>
+  </div>
+
+  <div id="flow-host" hidden>
+    <div id="flow-root" class="view is-active" aria-live="polite"></div>
+  </div>
 
   <footer class="reference-footer">
     <div class="footer-columns">
-      <div><h3 data-i18n="footer.product">产品</h3><a href="#pricing" data-i18n="footer.whyD5">为什么选择 D5</a><a href="#pricing" data-i18n="footer.whatsNew">最新动态</a><a href="#pricing" data-i18n="footer.pricing">价格</a><a href="#pricing" data-i18n="footer.download">下载</a><a href="#pricing" data-i18n="footer.teams">D5 团队版</a><a href="#pricing" data-i18n="footer.education">D5 教育版</a><a href="#pricing" data-i18n="footer.roadmap">开发路线图</a><a href="#pricing" data-i18n="footer.assets">素材库</a></div>
-      <div><h3 data-i18n="footer.support">支持</h3><a href="#pricing" data-i18n="footer.help">帮助中心</a><a href="#pricing" data-i18n="footer.requirements">系统要求</a><a href="#pricing" data-i18n="footer.space">我的空间</a></div>
-      <div><h3 data-i18n="footer.learn">学习</h3><a href="#pricing" data-i18n="footer.tutorial">教程</a><a href="#pricing" data-i18n="footer.sample">示例场景</a><a href="#pricing" data-i18n="footer.gallery">作品展示</a><a href="#pricing" data-i18n="footer.blog">博客</a><a href="#pricing" data-i18n="footer.webinars">线上研讨会</a><a href="#pricing" data-i18n="footer.certification">认证</a><a href="#pricing" data-i18n="footer.instructor">D5 讲师</a></div>
-      <div><h3 data-i18n="footer.community">社区</h3><a href="#pricing" data-i18n="footer.forum">论坛</a><a href="#pricing" data-i18n="footer.awards">D5 大奖</a><a href="#pricing" data-i18n="footer.creator">创作者计划</a><a href="#pricing" data-i18n="footer.campus">校园大使</a><a href="#pricing" data-i18n="footer.userGroup">用户社群</a><a href="#pricing" data-i18n="footer.winPro">赢取 D5 Pro</a></div>
-      <div><h3 data-i18n="footer.business">商务合作</h3><a href="#pricing" data-i18n="footer.reseller">成为经销商</a><a href="#pricing" data-i18n="footer.findReseller">寻找经销商</a><a href="#pricing" data-i18n="footer.affiliate">推广合作</a><a href="#pricing" data-i18n="footer.technology">技术合作伙伴</a><a href="#pricing" data-i18n="footer.brandKit">品牌资源</a><h3 class="company-heading" data-i18n="footer.company">公司</h3><a href="#pricing" data-i18n="footer.about">关于我们</a><a href="#pricing" data-i18n="footer.careers">加入我们</a></div>
+      <div><h3 data-i18n="footer.product">产品</h3><a href="#pricing" data-nav="pricing" data-i18n="footer.whyD5">为什么选择 D5</a><a href="#pricing" data-nav="pricing" data-i18n="footer.whatsNew">最新动态</a><a href="#pricing" data-nav="pricing" data-i18n="footer.pricing">价格</a><a href="#pricing" data-nav="pricing" data-i18n="footer.download">下载</a><a href="#pricing" data-nav="pricing" data-i18n="footer.teams">D5 团队版</a><a href="#pricing" data-nav="pricing" data-i18n="footer.education">D5 教育版</a><a href="#pricing" data-nav="pricing" data-i18n="footer.roadmap">开发路线图</a><a href="#pricing" data-nav="pricing" data-i18n="footer.assets">素材库</a></div>
+      <div><h3 data-i18n="footer.support">支持</h3><a href="#pricing" data-nav="pricing" data-i18n="footer.help">帮助中心</a><a href="#pricing" data-nav="pricing" data-i18n="footer.requirements">系统要求</a><a href="#pricing" data-nav="pricing" data-i18n="footer.space">我的空间</a></div>
+      <div><h3 data-i18n="footer.learn">学习</h3><a href="#pricing" data-nav="pricing" data-i18n="footer.tutorial">教程</a><a href="#pricing" data-nav="pricing" data-i18n="footer.sample">示例场景</a><a href="#pricing" data-nav="pricing" data-i18n="footer.gallery">作品展示</a><a href="#pricing" data-nav="pricing" data-i18n="footer.blog">博客</a><a href="#pricing" data-nav="pricing" data-i18n="footer.webinars">线上研讨会</a><a href="#pricing" data-nav="pricing" data-i18n="footer.certification">认证</a><a href="#pricing" data-nav="pricing" data-i18n="footer.instructor">D5 讲师</a></div>
+      <div><h3 data-i18n="footer.community">社区</h3><a href="#pricing" data-nav="pricing" data-i18n="footer.forum">论坛</a><a href="#pricing" data-nav="pricing" data-i18n="footer.awards">D5 大奖</a><a href="#pricing" data-nav="pricing" data-i18n="footer.creator">创作者计划</a><a href="#pricing" data-nav="pricing" data-i18n="footer.campus">校园大使</a><a href="#pricing" data-nav="pricing" data-i18n="footer.userGroup">用户社群</a><a href="#pricing" data-nav="pricing" data-i18n="footer.winPro">赢取 D5 Pro</a></div>
+      <div><h3 data-i18n="footer.business">商务合作</h3><a href="#pricing" data-nav="pricing" data-i18n="footer.reseller">成为经销商</a><a href="#pricing" data-nav="pricing" data-i18n="footer.findReseller">寻找经销商</a><a href="#pricing" data-nav="pricing" data-i18n="footer.affiliate">推广合作</a><a href="#pricing" data-nav="pricing" data-i18n="footer.technology">技术合作伙伴</a><a href="#pricing" data-nav="pricing" data-i18n="footer.brandKit">品牌资源</a><h3 class="company-heading" data-i18n="footer.company">公司</h3><a href="#pricing" data-nav="pricing" data-i18n="footer.about">关于我们</a><a href="#pricing" data-nav="pricing" data-i18n="footer.careers">加入我们</a></div>
       <div class="footer-subscribe">
         <h3 data-i18n="footer.subscribe">订阅动态</h3>
         <p data-i18n="footer.newsletter">获取最新消息、文章、资源和设计灵感。</p>
@@ -97,7 +106,7 @@
     </div>
     <div class="footer-legal">
       <span data-i18n="footer.copyright">Dimension 5 Techs. © 2026 Dimension 5. 保留所有权利。</span>
-      <span><a href="#pricing" data-i18n="footer.privacy">隐私政策</a>　<a href="#pricing" data-i18n="footer.service">服务协议</a>　<a href="#pricing" data-i18n="footer.join">加入我们</a></span>
+      <span><a href="#pricing" data-nav="pricing" data-i18n="footer.privacy">隐私政策</a>　<a href="#pricing" data-nav="pricing" data-i18n="footer.service">服务协议</a>　<a href="#pricing" data-nav="pricing" data-i18n="footer.join">加入我们</a></span>
       <fieldset class="language-switch" aria-label="Language">
         <button type="button" data-lang="zh" aria-pressed="true">中文</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -106,7 +115,8 @@
   </footer>
 
   <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20261009-lovart-clean"></script>
-  <script src="recommender.js?v=20261009-lovart-clean"></script>
+  <script src="app.js?v=20261009-flows-edit"></script>
+  <script src="recommender.js?v=20261009-flows-edit"></script>
+  <script src="flows.js?v=20261009-flows-edit"></script>
 </body>
 </html>
