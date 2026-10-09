@@ -79,82 +79,55 @@ const copy = {
   },
 };
 
-/** Latest C-end AI specs by 小/中/大 (mapped from rights sheet; Core excluded). */
+/** Latest C-end AI specs by 小/中/大 — positive entitlements only on cards. */
 function personalAi(lang, plan, tierIndex) {
-  const credits = tiers[tierIndex].credits.toLocaleString('en-US');
   if (lang === 'zh') {
     if (plan === 'community') {
       return [
         '登录一次性领取 300 积分，有效期 365 天',
-        '并发 2 · 图片 1K / 视频 480P',
-        '部分模型 · 生成内容不可商用',
-        'D5 Arco AI 增强 / 放大：消耗积分',
-        'D5 渲染器 AI 增强 / 放大：不支持',
-        '不可充值',
+        '并发 2',
+        '图片 1K / 视频 480P',
+        '部分模型可用',
       ];
     }
-    const commonBasic = [
-      `每月 ${credits} 积分（按月发放，未用完不累计）`,
-      '全部模型 · AI 生成可商用',
-      'D5 Arco AI 增强 / 放大：消耗积分',
-      'D5 渲染器 AI 增强 / 放大：不支持',
-    ];
-    const commonPro = [
-      `每月 ${credits} 积分（按月发放，未用完不累计）`,
-      '全部模型 · AI 生成可商用',
-      'D5 Arco AI 增强 / 放大：消耗积分',
-      'D5 渲染器 AI 增强 / 放大：不消耗积分',
-    ];
-    if (plan === 'basic') {
-      return [
-        [...commonBasic, '并发 4 · 图片 2K / 视频 720P', '充值：标准价（无额外赠送），积分有效期 90 天'],
-        [...commonBasic, '并发 10 · 图片 4K / 视频 4K', '充值：额外赠送 10%，积分有效期 90 天'],
-        [...commonBasic, '并发不限 · 图片 4K / 视频 4K', '充值：额外赠送 10%，积分有效期 90 天'],
-      ][tierIndex];
-    }
-    return [
-      [...commonPro, '并发 4 · 图片 4K / 视频 4K', '充值：额外赠送 10%，积分有效期 180 天'],
-      [...commonPro, '并发 10 · 图片 4K / 视频 4K', '充值：额外赠送 20%，积分有效期 180 天'],
-      [...commonPro, '并发不限 · 图片 4K / 视频 4K', '充值：额外赠送 20%，积分有效期 180 天'],
-    ][tierIndex];
+    const byTier = {
+      basic: [
+        ['全部模型 · AI 生成可商用', '并发 4', '图片 2K / 视频 720P'],
+        ['全部模型 · AI 生成可商用', '并发 10', '图片 4K / 视频 4K'],
+        ['全部模型 · AI 生成可商用', '并发不限', '图片 4K / 视频 4K'],
+      ],
+      pro: [
+        ['全部模型 · AI 生成可商用', '并发 4', '图片 4K / 视频 4K', '渲染器增强 / 放大不耗积分（Arco 按积分）'],
+        ['全部模型 · AI 生成可商用', '并发 10', '图片 4K / 视频 4K', '渲染器增强 / 放大不耗积分（Arco 按积分）'],
+        ['全部模型 · AI 生成可商用', '并发不限', '图片 4K / 视频 4K', '渲染器增强 / 放大不耗积分（Arco 按积分）'],
+      ],
+    };
+    return byTier[plan][tierIndex];
   }
   if (plan === 'community') {
     return [
       'One-time 300 credits on sign-in, valid 365 days',
-      'Concurrency 2 · image 1K / video 480P',
-      'Partial models · not for commercial use',
-      'D5 Arco enhance / upscale: consumes credits',
-      'D5 Render enhance / upscale: not supported',
-      'Top-up not available',
+      'Concurrency 2',
+      'Image 1K / video 480P',
+      'Partial model access',
     ];
   }
-  const commonBasic = [
-    `${credits} credits / month (issued monthly; unused do not roll over)`,
-    'All models · AI output may be used commercially',
-    'D5 Arco enhance / upscale: consumes credits',
-    'D5 Render enhance / upscale: not supported',
-  ];
-  const commonPro = [
-    `${credits} credits / month (issued monthly; unused do not roll over)`,
-    'All models · AI output may be used commercially',
-    'D5 Arco enhance / upscale: consumes credits',
-    'D5 Render enhance / upscale: does not consume credits',
-  ];
-  if (plan === 'basic') {
-    return [
-      [...commonBasic, 'Concurrency 4 · image 2K / video 720P', 'Top-up: list price (no bonus), credits valid 90 days'],
-      [...commonBasic, 'Concurrency 10 · image 4K / video 4K', 'Top-up: +10% bonus, credits valid 90 days'],
-      [...commonBasic, 'Unlimited concurrency · image 4K / video 4K', 'Top-up: +10% bonus, credits valid 90 days'],
-    ][tierIndex];
-  }
-  return [
-    [...commonPro, 'Concurrency 4 · image 4K / video 4K', 'Top-up: +10% bonus, credits valid 180 days'],
-    [...commonPro, 'Concurrency 10 · image 4K / video 4K', 'Top-up: +20% bonus, credits valid 180 days'],
-    [...commonPro, 'Concurrency unlimited · image 4K / video 4K', 'Top-up: +20% bonus, credits valid 180 days'],
-  ][tierIndex];
+  const byTier = {
+    basic: [
+      ['All models · commercial AI output', 'Concurrency 4', 'Image 2K / video 720P'],
+      ['All models · commercial AI output', 'Concurrency 10', 'Image 4K / video 4K'],
+      ['All models · commercial AI output', 'Unlimited concurrency', 'Image 4K / video 4K'],
+    ],
+    pro: [
+      ['All models · commercial AI output', 'Concurrency 4', 'Image 4K / video 4K', 'Render enhance / upscale free of credits (Arco metered)'],
+      ['All models · commercial AI output', 'Concurrency 10', 'Image 4K / video 4K', 'Render enhance / upscale free of credits (Arco metered)'],
+      ['All models · commercial AI output', 'Unlimited concurrency', 'Image 4K / video 4K', 'Render enhance / upscale free of credits (Arco metered)'],
+    ],
+  };
+  return byTier[plan][tierIndex];
 }
 
-/** Software / workflow features from live d5render.cn/pricing + master copy (non-AI). */
+/** Software / workflow features — short scannable lines. */
 function personalWorkflow(lang, plan) {
   if (lang === 'zh') {
     if (plan === 'community') {
@@ -162,29 +135,25 @@ function personalWorkflow(lang, plan) {
         '无限项目数量',
         '工作流同步插件',
         '环境光照与天气编辑',
-        '自定义素材与材质编辑',
         '植物笔刷 / 路径 / 散布',
-        '视频运镜和生长动画模板',
-        '图片 / 全景图 / 视频渲染',
-        'D5 Lite 免费功能衔接 · 官方素材 2,100+',
+        '图片 / 全景 / 视频渲染',
+        'D5 Lite 免费功能 · 官方素材 2,100+',
       ];
     }
     if (plan === 'basic') {
       return [
-        '包含社区版场景编辑与渲染基础能力',
+        '包含社区版场景编辑与基础渲染',
         'D5 Arco AI 创作衔接',
-        'D5 Lite 免费功能 · D5 渲染器社区版能力',
-        '通过文件导入 / 导出衔接各产品',
-        '官方素材库与自定义素材库',
+        'D5 Lite 免费功能 · 渲染器社区版能力',
+        '文件导入 / 导出衔接各产品',
       ];
     }
     return [
-      '在社区版权益之上，解锁专业工作流',
       'D5 Arco / Lite / 渲染器 / Works 专业功能',
-      '在线串流 · 16,000+ 云素材 · 城市生成器',
-      '舞台灯 / 投影灯 · VR / XR · 交互与全景展示不限',
-      '10 GB 云存储 · D5 Works 素材平台',
-      '通道图、品牌水印、视频序列帧与多帧率等专业输出',
+      '在线串流 · 16,000+ 云素材',
+      '城市生成器 · 舞台灯 / 投影灯',
+      'VR / XR · 交互与全景展示不限',
+      '10 GB 云存储 · 专业输出通道',
     ];
   }
   if (plan === 'community') {
@@ -192,30 +161,36 @@ function personalWorkflow(lang, plan) {
       'Unlimited projects',
       'Workflow sync plugins',
       'Environment lighting & weather',
-      'Custom assets & material editing',
       'Plant brush / path / scatter',
-      'Camera & growth animation templates',
       'Image / panorama / video render',
-      'D5 Lite free features · 2,100+ official assets',
+      'D5 Lite free features · 2,100+ assets',
     ];
   }
   if (plan === 'basic') {
     return [
-      'Includes Community scene editing & base render capabilities',
+      'Community scene editing & base render',
       'D5 Arco AI creation workflow',
-      'D5 Lite free features · D5 Render Community capabilities',
-      'Connect products via file import / export',
-      'Official asset library & custom libraries',
+      'D5 Lite free · Render Community',
+      'Connect products via import / export',
     ];
   }
   return [
-    'Everything in Community, plus the professional workflow',
-    'D5 Arco / Lite / Render / Works professional features',
-    'Live streaming · 16,000+ cloud assets · city generator',
-    'Stage / projection lights · VR / XR · unlimited interactive & panorama',
-    '10 GB cloud storage · D5 Works',
-    'Channels, brand watermark, image sequences & multi frame-rate output',
+    'Arco / Lite / Render / Works Pro features',
+    'Live streaming · 16,000+ cloud assets',
+    'City generator · stage / projection lights',
+    'VR / XR · unlimited interactive & panorama',
+    '10 GB cloud · pro output channels',
   ];
+}
+
+function capacityCopy(lang, plan, tierIndex) {
+  const n = tiers[tierIndex].credits.toLocaleString('en-US');
+  if (lang === 'zh') {
+    if (plan === 'community') return { title: '300 积分', sub: '登录一次性领取 · 有效期 365 天' };
+    return { title: `每月 ${n} 积分`, sub: '按月发放 · 未用完不累计' };
+  }
+  if (plan === 'community') return { title: '300 credits', sub: 'One-time on sign-in · valid 365 days' };
+  return { title: `${n} credits / month`, sub: 'Issued monthly · unused do not roll over' };
 }
 
 const plans = {
@@ -256,49 +231,34 @@ const businessModules = {
     {
       id: 'team',
       title: '团队版',
-      subtitle: '面向中小型团队，按成员需要配置基础席位或专业席位；统一管理产品权益与 AI 用量。不展示公开自助价。',
+      subtitle: '面向中小型团队，按成员配置基础席位或专业席位；统一管理权益与 AI 用量。报价请联系销售。',
       seats: [
         {
           id: 'team-basic',
           style: 'basic',
           name: '基础席位',
-          desc: '适合以 Arco AI 创作为主的协作成员',
+          desc: '以 Arco AI 创作为主',
           credits: 20000,
           cta: '获取团队方案',
-          ai: [
-            '每席位每年 20,000 积分',
+          bullets: [
+            '20,000 积分 / 席 / 年',
             '并发 10 · 图片 4K / 视频 4K',
-            '全部模型 · AI 生成可商用',
-            'D5 Arco AI 增强 / 放大：消耗积分',
-            'D5 渲染器 AI 增强 / 放大：消耗积分',
-            '充值：企业价格，积分有效期 365 天',
-          ],
-          workflow: [
-            'D5 Arco 基础功能 · D5 Lite / 渲染器免费能力',
-            '通过文件导入 / 导出衔接',
-            '单团队协作即将推出',
+            'Arco 基础 · Lite / 渲染器免费能力',
+            '渲染器增强 / 放大消耗积分',
           ],
         },
         {
           id: 'team-pro',
           style: 'pro',
           name: '专业席位',
-          desc: '适合需要专业可视化与交付的协作成员',
+          desc: '专业可视化与交付',
           credits: 25000,
           cta: '获取团队方案',
-          ai: [
-            '每席位每年 25,000 积分',
+          bullets: [
+            '25,000 积分 / 席 / 年 · 团队积分池',
             '并发 10 · 图片 4K / 视频 4K',
-            '全部模型 · AI 生成可商用',
-            'D5 Arco AI 增强 / 放大：消耗积分',
-            'D5 渲染器 AI 增强 / 放大：不消耗积分',
-            '团队积分池 · 充值企业价格，有效期 365 天',
-          ],
-          workflow: [
-            'D5 Arco / Lite 专业功能 · D5 渲染器团队版',
-            '在线串流 · 16,000+ 云素材 · 100 GB 云存储（团队）',
-            '交互演示多人编辑 · 空间 / 全景漫游不限',
-            '单团队协作即将推出',
+            'Arco / Lite / 渲染器团队版 · 在线串流',
+            '渲染器增强 / 放大不耗积分',
           ],
         },
       ],
@@ -306,48 +266,34 @@ const businessModules = {
     {
       id: 'enterprise',
       title: '企业版',
-      subtitle: '面向大型客户与组织采购，按基础席位或专业席位配置；支持组织级用量与权限规划。不展示公开自助价。',
+      subtitle: '面向大型组织采购，按基础席位或专业席位配置；支持组织级用量与权限规划。报价请联系销售。',
       seats: [
         {
           id: 'enterprise-basic',
           style: 'basic',
           name: '基础席位',
-          desc: '组织内以 AI 创作为主的基础协作席位',
+          desc: '组织内 AI 创作席位',
           credits: 22000,
           cta: '获取企业方案',
-          ai: [
-            '每席位每年 22,000 积分',
+          bullets: [
+            '22,000 积分 / 席 / 年',
             '并发不限 · 图片 4K / 视频 4K',
-            '全部模型 · AI 生成可商用',
-            'D5 Arco AI 增强 / 放大：消耗积分',
-            'D5 渲染器 AI 增强 / 放大：消耗积分',
-            '充值：企业价格，积分有效期 365 天',
-          ],
-          workflow: [
-            'D5 Arco 基础功能 · D5 Lite / 渲染器免费能力',
-            '通过文件导入 / 导出衔接',
-            '多团队管理即将推出',
+            'Arco 基础 · Lite / 渲染器免费能力',
+            '渲染器增强 / 放大消耗积分',
           ],
         },
         {
           id: 'enterprise-pro',
           style: 'pro',
           name: '专业席位',
-          desc: '组织级专业交付与可视化席位',
+          desc: '组织级专业交付',
           credits: 40000,
           cta: '联系企业顾问',
-          ai: [
-            '每席位每年 40,000 积分',
+          bullets: [
+            '40,000 积分 / 席 / 年 · 组织积分池',
             '并发不限 · 图片 4K / 视频 4K',
-            '全部模型 · AI 生成可商用',
-            'D5 Arco AI 增强 / 放大：消耗积分',
-            'D5 渲染器 AI 增强 / 放大：不消耗积分',
-            '组织积分池 · 充值企业价格，有效期 365 天',
-          ],
-          workflow: [
-            '专业产品组合 · 在线串流 · 组织积分与额度管理',
-            '16,000+ 云素材 · 团队 / 组织资产能力',
-            '多团队管理、SSO、组织权限和 API 即将推出',
+            '专业产品组合 · 在线串流 · 额度管理',
+            '渲染器增强 / 放大不耗积分',
           ],
         },
       ],
@@ -357,49 +303,34 @@ const businessModules = {
     {
       id: 'team',
       title: 'Teams',
-      subtitle: 'For small and mid-size teams. Configure Basic or Pro seats — no public self-serve price.',
+      subtitle: 'For small and mid-size teams. Configure Basic or Pro seats. Contact sales for a quote.',
       seats: [
         {
           id: 'team-basic',
           style: 'basic',
           name: 'Basic seat',
-          desc: 'For members focused on Arco AI creation',
+          desc: 'Arco AI–focused collaboration',
           credits: 20000,
           cta: 'Get a Teams plan',
-          ai: [
-            '20,000 credits per seat / year',
+          bullets: [
+            '20,000 credits / seat / year',
             'Concurrency 10 · image 4K / video 4K',
-            'All models · commercial AI output',
-            'D5 Arco enhance / upscale: consumes credits',
-            'D5 Render enhance / upscale: consumes credits',
-            'Top-up: enterprise pricing, credits valid 365 days',
-          ],
-          workflow: [
-            'D5 Arco basic · free Lite / Render',
-            'Connect via file import / export',
-            'Single-team collaboration coming soon',
+            'Arco basic · free Lite / Render',
+            'Render enhance / upscale consumes credits',
           ],
         },
         {
           id: 'team-pro',
           style: 'pro',
           name: 'Pro seat',
-          desc: 'For members who need professional viz & delivery',
+          desc: 'Professional viz & delivery',
           credits: 25000,
           cta: 'Get a Teams plan',
-          ai: [
-            '25,000 credits per seat / year',
+          bullets: [
+            '25,000 credits / seat / year · team pool',
             'Concurrency 10 · image 4K / video 4K',
-            'All models · commercial AI output',
-            'D5 Arco enhance / upscale: consumes credits',
-            'D5 Render enhance / upscale: does not consume credits',
-            'Team credit pool · enterprise top-up, 365-day validity',
-          ],
-          workflow: [
-            'D5 Arco / Lite Pro · D5 Render Teams',
-            'Live streaming · 16,000+ assets · 100 GB team cloud storage',
-            'Multi-user interactive demos · unlimited roam / panorama',
-            'Single-team collaboration coming soon',
+            'Arco / Lite / Render Teams · live streaming',
+            'Render enhance / upscale free of credits',
           ],
         },
       ],
@@ -407,48 +338,34 @@ const businessModules = {
     {
       id: 'enterprise',
       title: 'Enterprise',
-      subtitle: 'For large organizations. Configure Basic or Pro seats with org-level usage planning — quote only.',
+      subtitle: 'For large organizations. Configure Basic or Pro seats with org-level planning. Quote only.',
       seats: [
         {
           id: 'enterprise-basic',
           style: 'basic',
           name: 'Basic seat',
-          desc: 'Org seat focused on AI creation',
+          desc: 'Org AI creation seat',
           credits: 22000,
           cta: 'Get an Enterprise plan',
-          ai: [
-            '22,000 credits per seat / year',
+          bullets: [
+            '22,000 credits / seat / year',
             'Unlimited concurrency · image 4K / video 4K',
-            'All models · commercial AI output',
-            'D5 Arco enhance / upscale: consumes credits',
-            'D5 Render enhance / upscale: consumes credits',
-            'Top-up: enterprise pricing, credits valid 365 days',
-          ],
-          workflow: [
-            'D5 Arco basic · free Lite / Render',
-            'Connect via file import / export',
-            'Multi-team management coming soon',
+            'Arco basic · free Lite / Render',
+            'Render enhance / upscale consumes credits',
           ],
         },
         {
           id: 'enterprise-pro',
           style: 'pro',
           name: 'Pro seat',
-          desc: 'Org seat for professional delivery',
+          desc: 'Org professional delivery',
           credits: 40000,
           cta: 'Talk to an advisor',
-          ai: [
-            '40,000 credits per seat / year',
+          bullets: [
+            '40,000 credits / seat / year · org pool',
             'Unlimited concurrency · image 4K / video 4K',
-            'All models · commercial AI output',
-            'D5 Arco enhance / upscale: consumes credits',
-            'D5 Render enhance / upscale: does not consume credits',
-            'Org credit pool · enterprise top-up, 365-day validity',
-          ],
-          workflow: [
-            'Pro suite · live streaming · org credit & quota management',
-            '16,000+ assets · team / org asset capabilities',
-            'Multi-team, SSO, org permissions and API coming soon',
+            'Pro suite · live streaming · quota management',
+            'Render enhance / upscale free of credits',
           ],
         },
       ],
@@ -470,116 +387,100 @@ const businessMeta = {
 const compareData = {
   zh: {
     lead: '功能与权益',
-    cols: ['社区版', '基础版', '专业版', '团队专业席位'],
+    cols: ['社区版', '基础版', '专业版'],
     groups: [
       {
         title: 'AI 权益',
         rows: [
-          ['月度 / 席位积分', '登录 300（365 天）', '小/中/大 2k/6k/13k', '同档积分齐平', '25,000 / 席 / 年'],
-          ['并发任务', '2', '4 / 10 / 不限', '4 / 10 / 不限', '10'],
-          ['图片 / 视频上限', '1K / 480P', '2K·720P 起', '4K / 4K', '4K / 4K'],
-          ['模型与商用', '部分 · 不可商用', '全部 · 可商用', '全部 · 可商用', '全部 · 可商用'],
-          ['Arco 增强 / 放大', '消耗积分', '消耗积分', '消耗积分', '消耗积分'],
-          ['Render 增强 / 放大', '不支持', '不支持', '不消耗积分', '不消耗积分'],
-          ['充值', '不可充值', '标准价或 +10% · 90 天', '+10% / +20% · 180 天', '企业价格 · 365 天'],
+          ['月度积分', '登录 300（365 天）', '小/中/大 2k/6k/13k', '同档积分齐平'],
+          ['并发任务', '2', '4 / 10 / 不限', '4 / 10 / 不限'],
+          ['图片 / 视频上限', '1K / 480P', '2K·720P 起', '4K / 4K'],
+          ['模型与商用', '部分 · 不可商用', '全部 · 可商用', '全部 · 可商用'],
+          ['Arco 增强 / 放大', '消耗积分', '消耗积分', '消耗积分'],
+          ['Render 增强 / 放大', '不支持', '不支持', '不消耗积分'],
+          ['充值', '不可充值', '标准价或 +10% · 90 天', '+10% / +20% · 180 天'],
         ],
       },
       {
         title: '场景编辑',
         rows: [
-          ['无限场景 / 项目数量', true, true, true, true],
-          ['地理天空和天气系统', true, true, true, true],
-          ['植物笔刷、路径、散布', true, true, true, true],
-          ['视频运镜和生长动画模板', true, true, true, true],
-          ['舞台灯和投影灯', false, false, true, true],
-          ['城市生成', false, false, true, true],
-          ['项目合并', false, false, true, true],
+          ['无限场景 / 项目数量', true, true, true],
+          ['地理天空和天气系统', true, true, true],
+          ['植物笔刷、路径、散布', true, true, true],
+          ['视频运镜和生长动画模板', true, true, true],
+          ['舞台灯和投影灯', false, false, true],
+          ['城市生成', false, false, true],
+          ['项目合并', false, false, true],
         ],
       },
       {
         title: '渲染输出',
         rows: [
-          ['图片和全景图渲染', '最高 16K', '最高 16K', '最高 16K', '最高 16K'],
-          ['基础视频输出', '最高 4K', '最高 4K', '最高 4K', '最高 8K'],
-          ['通道图 / 品牌水印 / 序列帧', false, false, true, true],
-          ['VR / 双目立体 / XR', false, false, true, true],
-          ['交互演示', '创建 1 个', '创建 1 个', '不限', '不限，支持多人编辑'],
-          ['空间漫游和全景漫游', '创建 1 个', '创建 1 个', '不限', '不限'],
+          ['图片和全景图渲染', '最高 16K', '最高 16K', '最高 16K'],
+          ['基础视频输出', '最高 4K', '最高 4K', '最高 4K'],
+          ['通道图 / 品牌水印 / 序列帧', false, false, true],
+          ['VR / 双目立体 / XR', false, false, true],
+          ['交互演示', '创建 1 个', '创建 1 个', '不限'],
+          ['空间漫游和全景漫游', '创建 1 个', '创建 1 个', '不限'],
         ],
       },
       {
         title: '素材库与云存储',
         rows: [
-          ['官方素材', '2,100+', '2,100+', '16,000+', '16,000+'],
-          ['自定义素材库', true, true, true, true],
-          ['D5 Works', false, false, true, true],
-          ['团队资产库', false, false, false, true],
-          ['云存储空间', '限量', '限量', '10 GB', '100 GB'],
-        ],
-      },
-      {
-        title: '团队协作',
-        rows: [
-          ['项目多人编辑', false, false, false, true],
-          ['评论备注 / 团队后台', false, false, false, '即将推出'],
+          ['官方素材', '2,100+', '2,100+', '16,000+'],
+          ['自定义素材库', true, true, true],
+          ['D5 Works', false, false, true],
+          ['云存储空间', '限量', '限量', '10 GB'],
         ],
       },
     ],
   },
   en: {
     lead: 'Features & benefits',
-    cols: ['Community', 'Basic', 'Pro', 'Teams Pro seat'],
+    cols: ['Community', 'Basic', 'Pro'],
     groups: [
       {
         title: 'AI benefits',
         rows: [
-          ['Monthly / seat credits', 'Sign-in 300 (365d)', 'S/M/L 2k/6k/13k', 'Same tier credits', '25,000 / seat / year'],
-          ['Concurrency', '2', '4 / 10 / unlimited', '4 / 10 / unlimited', '10'],
-          ['Image / video max', '1K / 480P', 'From 2K·720P', '4K / 4K', '4K / 4K'],
-          ['Models & commercial', 'Partial · no', 'All · yes', 'All · yes', 'All · yes'],
-          ['Arco enhance / upscale', 'Consumes', 'Consumes', 'Consumes', 'Consumes'],
-          ['Render enhance / upscale', 'N/A', 'N/A', 'No consume', 'No consume'],
-          ['Top-up', 'Unavailable', 'List or +10% · 90d', '+10% / +20% · 180d', 'Enterprise · 365d'],
+          ['Monthly credits', 'Sign-in 300 (365d)', 'S/M/L 2k/6k/13k', 'Same tier credits'],
+          ['Concurrency', '2', '4 / 10 / unlimited', '4 / 10 / unlimited'],
+          ['Image / video max', '1K / 480P', 'From 2K·720P', '4K / 4K'],
+          ['Models & commercial', 'Partial · no', 'All · yes', 'All · yes'],
+          ['Arco enhance / upscale', 'Consumes', 'Consumes', 'Consumes'],
+          ['Render enhance / upscale', 'N/A', 'N/A', 'No consume'],
+          ['Top-up', 'Unavailable', 'List or +10% · 90d', '+10% / +20% · 180d'],
         ],
       },
       {
         title: 'Scene editing',
         rows: [
-          ['Unlimited scenes / projects', true, true, true, true],
-          ['Geo sky & weather', true, true, true, true],
-          ['Plant brush / path / scatter', true, true, true, true],
-          ['Camera & growth templates', true, true, true, true],
-          ['Stage & projection lights', false, false, true, true],
-          ['City generator', false, false, true, true],
-          ['Project merge', false, false, true, true],
+          ['Unlimited scenes / projects', true, true, true],
+          ['Geo sky & weather', true, true, true],
+          ['Plant brush / path / scatter', true, true, true],
+          ['Camera & growth templates', true, true, true],
+          ['Stage & projection lights', false, false, true],
+          ['City generator', false, false, true],
+          ['Project merge', false, false, true],
         ],
       },
       {
         title: 'Render output',
         rows: [
-          ['Image & panorama', 'Up to 16K', 'Up to 16K', 'Up to 16K', 'Up to 16K'],
-          ['Base video output', 'Up to 4K', 'Up to 4K', 'Up to 4K', 'Up to 8K'],
-          ['Channels / watermark / sequences', false, false, true, true],
-          ['VR / stereo / XR', false, false, true, true],
-          ['Interactive demos', 'Create 1', 'Create 1', 'Unlimited', 'Unlimited, multi-edit'],
-          ['Space & panorama roam', 'Create 1', 'Create 1', 'Unlimited', 'Unlimited'],
+          ['Image & panorama', 'Up to 16K', 'Up to 16K', 'Up to 16K'],
+          ['Base video output', 'Up to 4K', 'Up to 4K', 'Up to 4K'],
+          ['Channels / watermark / sequences', false, false, true],
+          ['VR / stereo / XR', false, false, true],
+          ['Interactive demos', 'Create 1', 'Create 1', 'Unlimited'],
+          ['Space & panorama roam', 'Create 1', 'Create 1', 'Unlimited'],
         ],
       },
       {
         title: 'Assets & cloud',
         rows: [
-          ['Official assets', '2,100+', '2,100+', '16,000+', '16,000+'],
-          ['Custom asset library', true, true, true, true],
-          ['D5 Works', false, false, true, true],
-          ['Team asset library', false, false, false, true],
-          ['Cloud storage', 'Limited', 'Limited', '10 GB', '100 GB'],
-        ],
-      },
-      {
-        title: 'Team collaboration',
-        rows: [
-          ['Multi-user project editing', false, false, false, true],
-          ['Comments / team admin', false, false, false, 'Coming soon'],
+          ['Official assets', '2,100+', '2,100+', '16,000+'],
+          ['Custom asset library', true, true, true],
+          ['D5 Works', false, false, true],
+          ['Cloud storage', 'Limited', 'Limited', '10 GB'],
         ],
       },
     ],
@@ -738,9 +639,24 @@ function syncBillingToggle() {
 }
 
 function listItems(list) {
-  return list.map(item => Array.isArray(item)
-    ? `<li>${item[0]}<em>${item[1]}</em></li>`
-    : `<li>${item}</li>`).join('');
+  return list.map(item => {
+    const body = Array.isArray(item) ? `${item[0]}<em>${item[1]}</em>` : item;
+    return `<li><img class="check" src="assets/figma/check-circle.svg" alt=""><span>${body}</span></li>`;
+  }).join('');
+}
+
+function capacityBlock(plan, tierIndex) {
+  const c = capacityCopy(state.lang, plan, tierIndex);
+  const ticks = plan === 'community'
+    ? ''
+    : `<div class="capacity-meter" aria-hidden="true"><i class="${tierIndex >= 0 ? 'on' : ''}"></i><i class="${tierIndex >= 1 ? 'on' : ''}"></i><i class="${tierIndex >= 2 ? 'on' : ''}"></i></div>`;
+  return `
+    <div class="capacity-zone" data-capacity-zone="${plan}">
+      <div class="capacity-label">${state.lang === 'zh' ? '用量额度' : 'Capacity'}</div>
+      <div class="capacity-title" data-capacity-title="${plan}">${c.title}</div>
+      <div class="capacity-sub" data-capacity-sub="${plan}">${c.sub}</div>
+      ${ticks}
+    </div>`;
 }
 
 function benefitBlocks(aiList, workflowList) {
@@ -754,7 +670,7 @@ function benefitBlocks(aiList, workflowList) {
       <div class="benefit-divider" aria-hidden="true"></div>
       <div class="benefit-block benefit-workflow">
         <div class="benefit-label">${p.workflowLabel}</div>
-        <ul class="plan-list" data-workflow-list>${listItems(workflowList)}</ul>
+        <ul class="plan-list plan-list-secondary" data-workflow-list>${listItems(workflowList)}</ul>
       </div>
     </div>`;
 }
@@ -789,16 +705,18 @@ function renderPlans() {
         <div class="biz-seat-grid">
           ${mod.seats.map(seat => `
             <article class="plan-card ${seat.style} seat-card" data-seat="${seat.id}">
-              <div class="plan-top">
+              <div class="plan-zone-a">
                 <div class="plan-title">
                   <p class="plan-desc">${seat.desc}</p>
                   <div class="plan-name"><h2>${seat.name}</h2></div>
                 </div>
-                <div class="plan-info"><p>${seat.credits.toLocaleString('en-US')} ${p.seatYear}</p></div>
-                <p class="seat-note">${meta.note}</p>
+                <div class="capacity-zone seat-capacity">
+                  <div class="capacity-title">${seat.credits.toLocaleString('en-US')} ${p.seatYear}</div>
+                  <div class="capacity-sub">${meta.note}</div>
+                </div>
               </div>
               <button type="button" class="plan-button" data-contact-sales="${seat.id}">${seat.cta}</button>
-              ${benefitBlocks(seat.ai, seat.workflow)}
+              <ul class="plan-list seat-bullets">${listItems(seat.bullets)}</ul>
             </article>`).join('')}
         </div>
       </section>`).join('');
@@ -816,7 +734,7 @@ function renderPlans() {
     const tier = tiers[i];
     return `
     <article class="plan-card ${id}" data-plan-card="${id}">
-      <div class="plan-top">
+      <div class="plan-zone-a">
         <div class="plan-title">
           <p class="plan-desc">${p[id].desc}</p>
           <div class="plan-name"><h2>${p[id].name}</h2>${firstTag(id)}</div>
@@ -834,19 +752,23 @@ function renderPlans() {
         </div>
       </div>
       <button type="button" class="plan-button">${p.upgrade}</button>
+      ${capacityBlock(id, i)}
       ${benefitBlocks(personalAi(state.lang, id, i), personalWorkflow(state.lang, id))}
     </article>`;
   };
 
   grid.innerHTML = `
     <article class="plan-card community">
-      <div class="plan-title">
-        <p class="plan-desc">${p.community.desc}</p>
-        <div class="plan-name"><h2>${p.community.name}</h2></div>
+      <div class="plan-zone-a">
+        <div class="plan-title">
+          <p class="plan-desc">${p.community.desc}</p>
+          <div class="plan-name"><h2>${p.community.name}</h2></div>
+        </div>
+        <div class="plan-price"><span class="price-value">￥0</span><span class="price-period">${p.free}</span></div>
+        <div class="plan-info"><p>${p.community.info}</p></div>
       </div>
-      <div class="plan-price"><span class="price-value">￥0</span><span class="price-period">${p.free}</span></div>
-      <div class="plan-info"><p>${p.community.info}</p></div>
       <a class="plan-button" href="#pricing">${p.download}</a>
+      ${capacityBlock('community', 0)}
       ${benefitBlocks(personalAi(state.lang, 'community', 0), personalWorkflow(state.lang, 'community'))}
     </article>
     ${paidCard('basic')}
@@ -892,6 +814,16 @@ function syncPaidCard(plan) {
   if (aiList) aiList.innerHTML = listItems(personalAi(state.lang, plan, i));
   const wfList = card.querySelector('[data-workflow-list]');
   if (wfList) wfList.innerHTML = listItems(personalWorkflow(state.lang, plan));
+
+  const cap = capacityCopy(state.lang, plan, i);
+  const titleEl = card.querySelector(`[data-capacity-title="${plan}"]`);
+  const subEl = card.querySelector(`[data-capacity-sub="${plan}"]`);
+  if (titleEl) titleEl.textContent = cap.title;
+  if (subEl) subEl.textContent = cap.sub;
+  const meter = card.querySelector('[data-capacity-zone] .capacity-meter');
+  if (meter) {
+    [...meter.children].forEach((tick, idx) => tick.classList.toggle('on', idx <= i));
+  }
 }
 
 function syncTier(scope) {
@@ -922,7 +854,7 @@ function renderCompare() {
       </tr></thead>
       <tbody class="compare-body">
         ${c.groups.map(group => `
-          <tr><th colspan="5" class="compare-group"><img src="assets/figma/caret-down.svg" alt="">${group.title}</th></tr>
+          <tr><th colspan="4" class="compare-group"><img src="assets/figma/caret-down.svg" alt="">${group.title}</th></tr>
           ${group.rows.map(row => {
             const [label, ...vals] = row;
             return `<tr class="compare-row"><th scope="row" class="lead">${label}</th>${vals.map(v => `<td class="col">${cellHtml(v)}</td>`).join('')}</tr>`;

@@ -58,27 +58,50 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .plan-card.seat-card .plan-name h2 { font-size: clamp(22px, 1.8vw, 28px); line-height: 1.25; }
 
 /* Business modules: Team / Enterprise */
-.biz-module { display: flex; flex-direction: column; gap: 20px; padding: 24px; border: 1px solid var(--border-10); border-radius: 20px; background: rgba(255, 255, 255, .02); }
+.biz-module { display: flex; flex-direction: column; gap: 16px; padding: 20px; border: 1px solid var(--border-10); border-radius: 20px; background: rgba(255, 255, 255, .02); }
 .biz-module-head { display: flex; flex-direction: column; gap: 8px; max-width: 720px; }
 .biz-module-head h2 { font-size: 28px; font-weight: 600; line-height: 36px; }
 .biz-module-head p { font-size: 14px; line-height: 22px; color: var(--text-60); }
 .biz-seat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 1.25vw, 24px); align-items: stretch; }
 
-/* Kimi-style benefit split inside cards */
-.benefit-stack { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
-.benefit-block { display: flex; flex-direction: column; gap: 4px; }
-.benefit-label { font-size: 14px; font-weight: 600; line-height: 22px; color: var(--text-60); letter-spacing: .02em; }
-.benefit-ai { padding: 12px 12px 8px; border: 1px solid rgba(148, 89, 255, .28); border-radius: 12px; background: linear-gradient(180deg, rgba(148, 89, 255, .12), rgba(148, 89, 255, .03)); }
+/* Lovart-inspired card zones + AI/workflow split */
+.plan-zone-a { display: flex; flex-direction: column; gap: 16px; padding-bottom: 4px; }
+.capacity-zone {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-10);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .03);
+}
+.capacity-label { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--text-60); }
+.capacity-title { font-size: 22px; font-weight: 600; line-height: 28px; letter-spacing: -.01em; }
+.capacity-sub { font-size: 13px; line-height: 18px; color: var(--text-60); }
+.capacity-meter { display: flex; gap: 6px; margin-top: 6px; }
+.capacity-meter i { flex: 1; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .12); }
+.capacity-meter i.on { background: var(--ai); }
+.seat-capacity { margin-top: 4px; }
+.seat-capacity .capacity-title { font-size: 18px; line-height: 24px; }
+.seat-bullets { margin-top: 4px; }
+.seat-bullets li { min-height: 0; padding: 6px 0; font-size: 13px; line-height: 20px; }
+
+.benefit-stack { display: flex; flex-direction: column; gap: 0; margin-top: 0; }
+.benefit-block { display: flex; flex-direction: column; gap: 10px; }
+.benefit-label { font-size: 13px; font-weight: 600; line-height: 18px; color: var(--text-60); letter-spacing: .03em; }
+.benefit-ai {
+  padding: 14px 14px 12px;
+  border: 1px solid rgba(148, 89, 255, .28);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(148, 89, 255, .14), rgba(148, 89, 255, .04));
+}
 .benefit-ai .benefit-label { color: #c9acff; }
-.benefit-ai .plan-list li { min-height: 28px; padding: 4px 0; }
-.benefit-divider { height: 1px; margin: 14px 0 12px; background: var(--border-10); }
+.benefit-divider { height: 1px; margin: 16px 0; background: var(--border-10); }
 .benefit-workflow .benefit-label { color: var(--text-80); }
-.benefit-workflow .plan-list li { min-height: 28px; padding: 4px 0; color: var(--text-80); }
 .compare-text { display: inline-block; font-size: 13px; line-height: 18px; color: var(--text-80); }
 .compare-empty { color: var(--text-60); opacity: .55; }
-.plan-card { display: flex; flex-direction: column; gap: clamp(16px, 1.67vw, 24px); padding: clamp(16px, 1.67vw, 24px); border: 2px solid var(--border-10); border-radius: 16px; min-width: 0; overflow-wrap: anywhere; transition: border-color .16s ease, background-color .16s ease; }
+.plan-card { display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, 1.67vw, 24px); border: 2px solid var(--border-10); border-radius: 16px; min-width: 0; overflow-wrap: anywhere; transition: border-color .16s ease, background-color .16s ease; }
 .plan-card.basic { background: radial-gradient(ellipse 262px 290px at 50% 35%, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)); }
 .plan-card.pro { border-color: #8f94fb; background: radial-gradient(ellipse 262px 290px at 50% 35%, rgba(199, 201, 253, .1) 50%, rgba(255, 255, 255, 0)); }
+.plan-card.seat-card { gap: 14px; }
 .plan-top { display: flex; flex-direction: column; gap: 16px; }
 .plan-title { display: flex; flex-direction: column; gap: 8px; }
 .plan-desc { font-size: 14px; font-weight: 500; line-height: 22px; color: var(--text-80); }
@@ -88,7 +111,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .plan-price { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; min-height: 40px; }
 .price-value { font-size: 32px; font-weight: 600; line-height: normal; white-space: nowrap; }
 .price-period { font-size: 14px; line-height: 22px; color: var(--text-80); }
-.plan-info { display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 500; line-height: 26px; }
+.plan-info { display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 500; line-height: 24px; color: var(--text-80); }
 
 .credit-block { display: flex; flex-direction: column; border-radius: 16px; }
 .credit-wrap { padding: 0 8px; }
@@ -131,9 +154,16 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   .basic .plan-button:hover { background-color: #e6e6e6; }
   .pro .plan-button:hover { background-color: #a775ff; }
 }
-.plan-list { list-style: none; margin: 0; padding: 0; }
-.plan-list li { min-height: 32px; padding: 5px 0; font-size: 14px; line-height: 22px; }
-.plan-list em { font-style: normal; font-weight: 500; color: #c9acff; margin-left: 8px; }
+.plan-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.plan-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  min-height: 0; padding: 6px 0;
+  font-size: 13px; line-height: 20px; color: rgba(255, 255, 255, .88);
+}
+.plan-list li .check { flex: none; width: 16px; height: 16px; margin-top: 2px; opacity: .9; }
+.plan-list li span { flex: 1; min-width: 0; }
+.plan-list-secondary li { color: var(--text-80); font-size: 13px; line-height: 20px; }
+.plan-list em { font-style: normal; font-weight: 500; color: #c9acff; margin-left: 6px; }
 
 /* ---------- Education ---------- */
 .education { display: flex; justify-content: center; padding: 16px; }
@@ -154,11 +184,11 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 /* ---------- Feature comparison ---------- */
 .compare-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .compare-scroll:focus-visible { outline: 2px solid #c9acff; outline-offset: 4px; border-radius: 8px; }
-.compare-table { width: 100%; min-width: 720px; table-layout: fixed; border-collapse: separate; border-spacing: 0; }
+.compare-table { width: 100%; min-width: 640px; table-layout: fixed; border-collapse: separate; border-spacing: 0; }
 .compare-table th, .compare-table td { vertical-align: middle; overflow-wrap: anywhere; }
 .compare-table thead th { padding: 24px 12px; font-size: 20px; font-weight: 500; line-height: 40px; text-align: center; }
-.compare-table thead .lead { width: 36%; padding-left: 16px; text-align: left; }
-.compare-table thead .col { width: 16%; }
+.compare-table thead .lead { width: 34%; padding-left: 16px; text-align: left; }
+.compare-table thead .col { width: 22%; }
 .compare-table thead .lead img { display: inline-block; width: 12px; height: 12px; margin-left: 4px; vertical-align: middle; }
 .compare-table tbody th, .compare-table tbody td { border-bottom: 1px solid var(--border-6); border-right: 1px solid var(--border-6); }
 .compare-table tbody tr > :first-child { border-left: 1px solid var(--border-10); }
