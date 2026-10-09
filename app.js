@@ -27,7 +27,7 @@ const copy = {
     'workflow.title': '方案推荐', 'workflow.subtitle': '让创作走的更远',
     'comparison.title': '完整功能对比', 'comparison.subtitle': '详细对比套餐及功能权益',
     'faq.q1': '各档方案只差积分吗？',
-    'faq.a1': '不只积分。小 / 中 / 大还会影响并发、输出分辨率、充值赠送与积分有效期等；基础版与专业版同档积分一致，但在产品工作流与计量上不同——D5 Arco 的 AI 增强 / 放大消耗积分；专业版下 D5 渲染器的 AI 增强 / 放大不消耗积分，基础版不支持渲染器侧增强。具体以当前方案与功能入口说明为准。',
+    'faq.a1': '不只积分。小 / 中 / 大还会影响并发任务、图片/视频规格、充值赠送与积分有效期。基础与专业同档积分一致，核心差异是：①商用——基础为生成内容可商用，专业为全部成果可商用；②增强、放大——Arco 两端都消耗积分；专业版渲染器侧不消耗积分，基础版不支持渲染器侧增强。具体以功能入口说明为准。',
     'faq.q2': '年购积分如何发放？会自动续费吗？',
     'faq.a2': '年购一次支付，积分仍按月发放，未用完不累计到下一积分月。当前为到期不自动续费；是否自动续费以购买确认页为准。',
     'faq.q3': '充值规则是什么？团队 / 企业怎么买？',
@@ -57,7 +57,7 @@ const copy = {
     'workflow.title': 'Plan finder', 'workflow.subtitle': 'Take your creativity further',
     'comparison.title': 'Compare all features', 'comparison.subtitle': 'Detailed comparison of plans and features',
     'faq.q1': 'Do tiers only differ in credits?',
-    'faq.a1': 'No. Small / Medium / Large also affect concurrency, output resolution, top-up bonuses and credit validity. Basic and Pro share the same credit tiers, but workflows and metering differ: D5 Arco enhance/upscale consumes credits; on Pro, D5 Render enhance/upscale does not consume credits, while Basic does not support Render-side enhance. Always follow the plan and feature entry copy.',
+    'faq.a1': 'No. Small / Medium / Large also change concurrency, image/video caps, top-up bonuses and credit validity. Basic and Pro share the same credit tiers. Core differences: (1) commercial — Basic covers AI output; Pro covers all deliverables; (2) enhance/upscale — Arco always consumes credits; Render enhance is free of credits on Pro only (unsupported on Basic). Follow the feature entry copy.',
     'faq.q2': 'How are yearly credits issued? Auto-renew?',
     'faq.a2': 'Yearly plans are paid once; credits are still issued monthly and unused credits do not roll over. Current purchases do not auto-renew at expiry; the confirmation page is authoritative.',
     'faq.q3': 'Top-up rules? How do Teams / Enterprise work?',
@@ -79,49 +79,123 @@ const copy = {
   },
 };
 
-/** Latest C-end AI specs by 小/中/大 — positive entitlements only on cards. */
+/** C-end AI lines: short scan lines + bold values (ref 20260918 clarity; no ✦ header required). */
 function personalAi(lang, plan, tierIndex) {
   if (lang === 'zh') {
     if (plan === 'community') {
       return [
-        '登录一次性领取 300 积分，有效期 365 天',
-        '并发 2',
-        '图片 1K / 视频 480P',
-        '部分模型可用',
+        '并发任务 <b>2</b>',
+        '图片 <b>1K</b> · 视频 <b>480P</b>',
+        '模型 <b>部分开放</b>',
+        '生成内容不可商用',
+        '增强、放大功能消耗积分',
       ];
     }
     const byTier = {
       basic: [
-        ['全部模型 · AI 生成可商用', '并发 4', '图片 2K / 视频 720P'],
-        ['全部模型 · AI 生成可商用', '并发 10', '图片 4K / 视频 4K'],
-        ['全部模型 · AI 生成可商用', '并发不限', '图片 4K / 视频 4K'],
+        [
+          '并发任务 <b>4</b>',
+          '图片 <b>2K</b> · 视频 <b>720P</b>',
+          '模型 <b>全部开放</b>',
+          '生成内容 <b>可商用</b>',
+          '增强、放大功能消耗积分',
+        ],
+        [
+          '并发任务 <b>10</b>',
+          '图片 <b>4K</b> · 视频 <b>4K</b>',
+          '模型 <b>全部开放</b>',
+          '生成内容 <b>可商用</b>',
+          '增强、放大功能消耗积分',
+        ],
+        [
+          '并发任务 <b>不限</b>',
+          '图片 <b>4K</b> · 视频 <b>4K</b>',
+          '模型 <b>全部开放</b>',
+          '生成内容 <b>可商用</b>',
+          '增强、放大功能消耗积分',
+        ],
       ],
       pro: [
-        ['全部模型 · AI 生成可商用', '并发 4', '图片 4K / 视频 4K', '渲染器增强 / 放大不耗积分（Arco 按积分）'],
-        ['全部模型 · AI 生成可商用', '并发 10', '图片 4K / 视频 4K', '渲染器增强 / 放大不耗积分（Arco 按积分）'],
-        ['全部模型 · AI 生成可商用', '并发不限', '图片 4K / 视频 4K', '渲染器增强 / 放大不耗积分（Arco 按积分）'],
+        [
+          '并发任务 <b>4</b>',
+          '图片 <b>4K</b> · 视频 <b>4K</b>（全档）',
+          '模型 <b>全部开放</b>',
+          '全部成果 <b>可商用</b>',
+          '增强、放大：渲染器不消耗积分 · Arco 消耗积分',
+        ],
+        [
+          '并发任务 <b>10</b>',
+          '图片 <b>4K</b> · 视频 <b>4K</b>（全档）',
+          '模型 <b>全部开放</b>',
+          '全部成果 <b>可商用</b>',
+          '增强、放大：渲染器不消耗积分 · Arco 消耗积分',
+        ],
+        [
+          '并发任务 <b>不限</b>',
+          '图片 <b>4K</b> · 视频 <b>4K</b>（全档）',
+          '模型 <b>全部开放</b>',
+          '全部成果 <b>可商用</b>',
+          '增强、放大：渲染器不消耗积分 · Arco 消耗积分',
+        ],
       ],
     };
     return byTier[plan][tierIndex];
   }
   if (plan === 'community') {
     return [
-      'One-time 300 credits on sign-in, valid 365 days',
-      'Concurrency 2',
-      'Image 1K / video 480P',
-      'Partial model access',
+      'Concurrency <b>2</b>',
+      'Image <b>1K</b> · video <b>480P</b>',
+      'Models <b>partial</b>',
+      'AI output not commercial',
+      'Enhance / upscale consumes credits',
     ];
   }
   const byTier = {
     basic: [
-      ['All models · commercial AI output', 'Concurrency 4', 'Image 2K / video 720P'],
-      ['All models · commercial AI output', 'Concurrency 10', 'Image 4K / video 4K'],
-      ['All models · commercial AI output', 'Unlimited concurrency', 'Image 4K / video 4K'],
+      [
+        'Concurrency <b>4</b>',
+        'Image <b>2K</b> · video <b>720P</b>',
+        'Models <b>all open</b>',
+        'AI output <b>commercial</b>',
+        'Enhance / upscale consumes credits',
+      ],
+      [
+        'Concurrency <b>10</b>',
+        'Image <b>4K</b> · video <b>4K</b>',
+        'Models <b>all open</b>',
+        'AI output <b>commercial</b>',
+        'Enhance / upscale consumes credits',
+      ],
+      [
+        'Concurrency <b>unlimited</b>',
+        'Image <b>4K</b> · video <b>4K</b>',
+        'Models <b>all open</b>',
+        'AI output <b>commercial</b>',
+        'Enhance / upscale consumes credits',
+      ],
     ],
     pro: [
-      ['All models · commercial AI output', 'Concurrency 4', 'Image 4K / video 4K', 'Render enhance / upscale free of credits (Arco metered)'],
-      ['All models · commercial AI output', 'Concurrency 10', 'Image 4K / video 4K', 'Render enhance / upscale free of credits (Arco metered)'],
-      ['All models · commercial AI output', 'Unlimited concurrency', 'Image 4K / video 4K', 'Render enhance / upscale free of credits (Arco metered)'],
+      [
+        'Concurrency <b>4</b>',
+        'Image <b>4K</b> · video <b>4K</b> (all tiers)',
+        'Models <b>all open</b>',
+        'All deliverables <b>commercial</b>',
+        'Enhance / upscale: Render free of credits · Arco metered',
+      ],
+      [
+        'Concurrency <b>10</b>',
+        'Image <b>4K</b> · video <b>4K</b> (all tiers)',
+        'Models <b>all open</b>',
+        'All deliverables <b>commercial</b>',
+        'Enhance / upscale: Render free of credits · Arco metered',
+      ],
+      [
+        'Concurrency <b>unlimited</b>',
+        'Image <b>4K</b> · video <b>4K</b> (all tiers)',
+        'Models <b>all open</b>',
+        'All deliverables <b>commercial</b>',
+        'Enhance / upscale: Render free of credits · Arco metered',
+      ],
     ],
   };
   return byTier[plan][tierIndex];
@@ -187,10 +261,10 @@ function capacityCopy(lang, plan, tierIndex) {
   const n = tiers[tierIndex].credits.toLocaleString('en-US');
   if (lang === 'zh') {
     if (plan === 'community') return { title: '300 积分', sub: '登录一次性领取 · 有效期 365 天' };
-    return { title: `每月 ${n} 积分`, sub: '按月发放 · 未用完不累计' };
+    return { title: `每月 ${n} 积分`, sub: '用于 AI 图像 / 视频 / 3D 创作 · 按月发放' };
   }
   if (plan === 'community') return { title: '300 credits', sub: 'One-time on sign-in · valid 365 days' };
-  return { title: `${n} credits / month`, sub: 'Issued monthly · unused do not roll over' };
+  return { title: `${n} credits / month`, sub: 'For AI image / video / 3D · issued monthly' };
 }
 
 const plans = {
@@ -198,7 +272,7 @@ const plans = {
     tierNames: ['小', '中', '大'],
     credits: '积分', perMonth: '/月', monthly: '/月订阅', annual: '/年订阅', free: '/免费体验',
     upgrade: '立即购买', download: '免费下载',
-    aiLabel: 'AI 权益', workflowLabel: 'D5 工作流权益',
+    aiLabel: '创作额度与规格', workflowLabel: '软件与工作流',
     community: {
       desc: '免费探索 D5 创作',
       name: '社区版',
@@ -213,7 +287,7 @@ const plans = {
     tierNames: ['Small', 'Medium', 'Large'],
     credits: 'credits', perMonth: '/mo', monthly: '/month', annual: '/year', free: '/free',
     upgrade: 'Buy now', download: 'Free Download',
-    aiLabel: 'AI benefits', workflowLabel: 'D5 workflow benefits',
+    aiLabel: 'Credits & output', workflowLabel: 'Software & workflow',
     community: {
       desc: 'Explore D5 creation for free',
       name: 'Community',
@@ -237,26 +311,26 @@ const businessModules = {
           id: 'team-basic',
           style: 'basic',
           name: '基础席位',
-          desc: 'Arco AI 创作',
+          desc: '按量创作 · 增强耗积分',
           credits: 20000,
           cta: '获取团队方案',
           bullets: [
-            '并发 10 · 图片/视频 4K',
-            'Arco 基础 · Lite/渲染器免费',
-            '增强/放大耗积分',
+            '并发任务 <b>10</b> · 图片/视频 <b>4K</b>',
+            '模型全部 · 生成内容可商用',
+            '增强、放大功能消耗积分',
           ],
         },
         {
           id: 'team-pro',
           style: 'pro',
           name: '专业席位',
-          desc: '专业交付 · 团队池',
+          desc: '专业交付 · 渲染器增强不耗积分',
           credits: 25000,
           cta: '获取团队方案',
           bullets: [
-            '并发 10 · 图片/视频 4K',
-            'Arco/Lite/渲染器团队版 · 串流',
-            '增强/放大不耗积分',
+            '并发任务 <b>10</b> · 图片/视频 <b>4K</b>',
+            '模型全部 · 全部成果可商用',
+            '增强、放大：渲染器不消耗积分 · Arco 消耗积分',
           ],
         },
       ],
@@ -270,26 +344,26 @@ const businessModules = {
           id: 'enterprise-basic',
           style: 'basic',
           name: '基础席位',
-          desc: '组织 AI 创作',
+          desc: '组织按量创作 · 增强耗积分',
           credits: 22000,
           cta: '获取企业方案',
           bullets: [
-            '并发不限 · 图片/视频 4K',
-            'Arco 基础 · Lite/渲染器免费',
-            '增强/放大耗积分',
+            '并发任务 <b>不限</b> · 图片/视频 <b>4K</b>',
+            '模型全部 · 生成内容可商用',
+            '增强、放大功能消耗积分',
           ],
         },
         {
           id: 'enterprise-pro',
           style: 'pro',
           name: '专业席位',
-          desc: '组织交付 · 组织池',
+          desc: '组织专业交付 · 渲染器增强不耗积分',
           credits: 40000,
           cta: '联系企业顾问',
           bullets: [
-            '并发不限 · 图片/视频 4K',
-            '专业组合 · 串流 · 额度管理',
-            '增强/放大不耗积分',
+            '并发任务 <b>不限</b> · 图片/视频 <b>4K</b>',
+            '模型全部 · 全部成果可商用',
+            '增强、放大：渲染器不消耗积分 · Arco 消耗积分',
           ],
         },
       ],
@@ -305,26 +379,26 @@ const businessModules = {
           id: 'team-basic',
           style: 'basic',
           name: 'Basic seat',
-          desc: 'Arco AI creation',
+          desc: 'Metered creation · enhance uses credits',
           credits: 20000,
           cta: 'Get a Teams plan',
           bullets: [
-            'Concurrency 10 · 4K image/video',
-            'Arco basic · free Lite/Render',
-            'Enhance/upscale uses credits',
+            'Concurrency <b>10</b> · image/video <b>4K</b>',
+            'All models · commercial AI output',
+            'Enhance / upscale consumes credits',
           ],
         },
         {
           id: 'team-pro',
           style: 'pro',
           name: 'Pro seat',
-          desc: 'Pro delivery · team pool',
+          desc: 'Pro delivery · Render enhance free of credits',
           credits: 25000,
           cta: 'Get a Teams plan',
           bullets: [
-            'Concurrency 10 · 4K image/video',
-            'Arco/Lite/Render Teams · stream',
-            'Enhance/upscale free of credits',
+            'Concurrency <b>10</b> · image/video <b>4K</b>',
+            'All models · all deliverables commercial',
+            'Enhance / upscale: Render free · Arco metered',
           ],
         },
       ],
@@ -338,26 +412,26 @@ const businessModules = {
           id: 'enterprise-basic',
           style: 'basic',
           name: 'Basic seat',
-          desc: 'Org AI creation',
+          desc: 'Org metered creation · enhance uses credits',
           credits: 22000,
           cta: 'Get an Enterprise plan',
           bullets: [
-            'Unlimited concurrency · 4K',
-            'Arco basic · free Lite/Render',
-            'Enhance/upscale uses credits',
+            'Concurrency <b>unlimited</b> · image/video <b>4K</b>',
+            'All models · commercial AI output',
+            'Enhance / upscale consumes credits',
           ],
         },
         {
           id: 'enterprise-pro',
           style: 'pro',
           name: 'Pro seat',
-          desc: 'Org delivery · org pool',
+          desc: 'Org pro delivery · Render enhance free of credits',
           credits: 40000,
           cta: 'Talk to an advisor',
           bullets: [
-            'Unlimited concurrency · 4K',
-            'Pro suite · stream · quota mgmt',
-            'Enhance/upscale free of credits',
+            'Concurrency <b>unlimited</b> · image/video <b>4K</b>',
+            'All models · all deliverables commercial',
+            'Enhance / upscale: Render free · Arco metered',
           ],
         },
       ],
@@ -386,10 +460,11 @@ const compareData = {
         rows: [
           ['月度积分', '登录 300（365 天）', '小/中/大 2k/6k/13k', '同档积分齐平'],
           ['并发任务', '2', '4 / 10 / 不限', '4 / 10 / 不限'],
-          ['图片 / 视频上限', '1K / 480P', '2K·720P 起', '4K / 4K'],
-          ['模型与商用', '部分 · 不可商用', '全部 · 可商用', '全部 · 可商用'],
-          ['Arco 增强 / 放大', '消耗积分', '消耗积分', '消耗积分'],
-          ['Render 增强 / 放大', '不支持', '不支持', '不消耗积分'],
+          ['图片 · 视频', '1K · 480P', '小档 2K·720P 起', '全档 4K · 4K'],
+          ['模型', '部分开放', '全部开放', '全部开放'],
+          ['商用', '生成内容不可商用', '生成内容可商用', '全部成果可商用'],
+          ['增强、放大（Arco）', '消耗积分', '消耗积分', '消耗积分'],
+          ['增强、放大（渲染器）', '不支持', '不支持', '不消耗积分'],
           ['充值', '不可充值', '标准价或 +10% · 90 天', '+10% / +20% · 180 天'],
         ],
       },
@@ -436,10 +511,11 @@ const compareData = {
         rows: [
           ['Monthly credits', 'Sign-in 300 (365d)', 'S/M/L 2k/6k/13k', 'Same tier credits'],
           ['Concurrency', '2', '4 / 10 / unlimited', '4 / 10 / unlimited'],
-          ['Image / video max', '1K / 480P', 'From 2K·720P', '4K / 4K'],
-          ['Models & commercial', 'Partial · no', 'All · yes', 'All · yes'],
-          ['Arco enhance / upscale', 'Consumes', 'Consumes', 'Consumes'],
-          ['Render enhance / upscale', 'N/A', 'N/A', 'No consume'],
+          ['Image · video', '1K · 480P', 'From Small 2K·720P', 'All tiers 4K · 4K'],
+          ['Models', 'Partial', 'All open', 'All open'],
+          ['Commercial use', 'AI output no', 'AI output yes', 'All deliverables yes'],
+          ['Enhance / upscale (Arco)', 'Consumes', 'Consumes', 'Consumes'],
+          ['Enhance / upscale (Render)', 'N/A', 'N/A', 'No consume'],
           ['Top-up', 'Unavailable', 'List or +10% · 90d', '+10% / +20% · 180d'],
         ],
       },

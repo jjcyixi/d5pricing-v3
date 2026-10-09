@@ -349,3 +349,6 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+.plan-list span b { color: var(--text); font-weight: 650; }
+.seat-bullets span b { color: var(--text); font-weight: 650; }
