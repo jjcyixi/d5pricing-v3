@@ -231,34 +231,32 @@ const businessModules = {
     {
       id: 'team',
       title: '团队版',
-      subtitle: '面向中小型团队，按成员配置基础席位或专业席位；统一管理权益与 AI 用量。报价请联系销售。',
+      subtitle: '中小型团队 · 按席配置 · 联系销售报价',
       seats: [
         {
           id: 'team-basic',
           style: 'basic',
           name: '基础席位',
-          desc: '以 Arco AI 创作为主',
+          desc: 'Arco AI 创作',
           credits: 20000,
           cta: '获取团队方案',
           bullets: [
-            '20,000 积分 / 席 / 年',
-            '并发 10 · 图片 4K / 视频 4K',
-            'Arco 基础 · Lite / 渲染器免费能力',
-            '渲染器增强 / 放大消耗积分',
+            '并发 10 · 图片/视频 4K',
+            'Arco 基础 · Lite/渲染器免费',
+            '增强/放大耗积分',
           ],
         },
         {
           id: 'team-pro',
           style: 'pro',
           name: '专业席位',
-          desc: '专业可视化与交付',
+          desc: '专业交付 · 团队池',
           credits: 25000,
           cta: '获取团队方案',
           bullets: [
-            '25,000 积分 / 席 / 年 · 团队积分池',
-            '并发 10 · 图片 4K / 视频 4K',
-            'Arco / Lite / 渲染器团队版 · 在线串流',
-            '渲染器增强 / 放大不耗积分',
+            '并发 10 · 图片/视频 4K',
+            'Arco/Lite/渲染器团队版 · 串流',
+            '增强/放大不耗积分',
           ],
         },
       ],
@@ -266,34 +264,32 @@ const businessModules = {
     {
       id: 'enterprise',
       title: '企业版',
-      subtitle: '面向大型组织采购，按基础席位或专业席位配置；支持组织级用量与权限规划。报价请联系销售。',
+      subtitle: '大型组织 · 按席配置 · 联系销售报价',
       seats: [
         {
           id: 'enterprise-basic',
           style: 'basic',
           name: '基础席位',
-          desc: '组织内 AI 创作席位',
+          desc: '组织 AI 创作',
           credits: 22000,
           cta: '获取企业方案',
           bullets: [
-            '22,000 积分 / 席 / 年',
-            '并发不限 · 图片 4K / 视频 4K',
-            'Arco 基础 · Lite / 渲染器免费能力',
-            '渲染器增强 / 放大消耗积分',
+            '并发不限 · 图片/视频 4K',
+            'Arco 基础 · Lite/渲染器免费',
+            '增强/放大耗积分',
           ],
         },
         {
           id: 'enterprise-pro',
           style: 'pro',
           name: '专业席位',
-          desc: '组织级专业交付',
+          desc: '组织交付 · 组织池',
           credits: 40000,
           cta: '联系企业顾问',
           bullets: [
-            '40,000 积分 / 席 / 年 · 组织积分池',
-            '并发不限 · 图片 4K / 视频 4K',
-            '专业产品组合 · 在线串流 · 额度管理',
-            '渲染器增强 / 放大不耗积分',
+            '并发不限 · 图片/视频 4K',
+            '专业组合 · 串流 · 额度管理',
+            '增强/放大不耗积分',
           ],
         },
       ],
@@ -303,34 +299,32 @@ const businessModules = {
     {
       id: 'team',
       title: 'Teams',
-      subtitle: 'For small and mid-size teams. Configure Basic or Pro seats. Contact sales for a quote.',
+      subtitle: 'SMB teams · per-seat · sales quote',
       seats: [
         {
           id: 'team-basic',
           style: 'basic',
           name: 'Basic seat',
-          desc: 'Arco AI–focused collaboration',
+          desc: 'Arco AI creation',
           credits: 20000,
           cta: 'Get a Teams plan',
           bullets: [
-            '20,000 credits / seat / year',
-            'Concurrency 10 · image 4K / video 4K',
-            'Arco basic · free Lite / Render',
-            'Render enhance / upscale consumes credits',
+            'Concurrency 10 · 4K image/video',
+            'Arco basic · free Lite/Render',
+            'Enhance/upscale uses credits',
           ],
         },
         {
           id: 'team-pro',
           style: 'pro',
           name: 'Pro seat',
-          desc: 'Professional viz & delivery',
+          desc: 'Pro delivery · team pool',
           credits: 25000,
           cta: 'Get a Teams plan',
           bullets: [
-            '25,000 credits / seat / year · team pool',
-            'Concurrency 10 · image 4K / video 4K',
-            'Arco / Lite / Render Teams · live streaming',
-            'Render enhance / upscale free of credits',
+            'Concurrency 10 · 4K image/video',
+            'Arco/Lite/Render Teams · stream',
+            'Enhance/upscale free of credits',
           ],
         },
       ],
@@ -338,34 +332,32 @@ const businessModules = {
     {
       id: 'enterprise',
       title: 'Enterprise',
-      subtitle: 'For large organizations. Configure Basic or Pro seats with org-level planning. Quote only.',
+      subtitle: 'Large orgs · per-seat · sales quote',
       seats: [
         {
           id: 'enterprise-basic',
           style: 'basic',
           name: 'Basic seat',
-          desc: 'Org AI creation seat',
+          desc: 'Org AI creation',
           credits: 22000,
           cta: 'Get an Enterprise plan',
           bullets: [
-            '22,000 credits / seat / year',
-            'Unlimited concurrency · image 4K / video 4K',
-            'Arco basic · free Lite / Render',
-            'Render enhance / upscale consumes credits',
+            'Unlimited concurrency · 4K',
+            'Arco basic · free Lite/Render',
+            'Enhance/upscale uses credits',
           ],
         },
         {
           id: 'enterprise-pro',
           style: 'pro',
           name: 'Pro seat',
-          desc: 'Org professional delivery',
+          desc: 'Org delivery · org pool',
           credits: 40000,
           cta: 'Talk to an advisor',
           bullets: [
-            '40,000 credits / seat / year · org pool',
-            'Unlimited concurrency · image 4K / video 4K',
-            'Pro suite · live streaming · quota management',
-            'Render enhance / upscale free of credits',
+            'Unlimited concurrency · 4K',
+            'Pro suite · stream · quota mgmt',
+            'Enhance/upscale free of credits',
           ],
         },
       ],
@@ -696,23 +688,24 @@ function renderPlans() {
     const modules = businessModules[state.lang];
     const meta = businessMeta[state.lang];
     const p = P();
+    // Two version modules side-by-side; each shows 基础|专业 seats in one row
     grid.innerHTML = modules.map(mod => `
       <section class="biz-module" data-biz-module="${mod.id}">
         <div class="biz-module-head">
           <h2>${mod.title}</h2>
           <p>${mod.subtitle}</p>
+          <p class="biz-module-note">${meta.note}</p>
         </div>
         <div class="biz-seat-grid">
           ${mod.seats.map(seat => `
             <article class="plan-card ${seat.style} seat-card" data-seat="${seat.id}">
               <div class="plan-zone-a">
                 <div class="plan-title">
-                  <p class="plan-desc">${seat.desc}</p>
                   <div class="plan-name"><h2>${seat.name}</h2></div>
+                  <p class="plan-desc">${seat.desc}</p>
                 </div>
                 <div class="capacity-zone seat-capacity">
                   <div class="capacity-title">${seat.credits.toLocaleString('en-US')} ${p.seatYear}</div>
-                  <div class="capacity-sub">${meta.note}</div>
                 </div>
               </div>
               <button type="button" class="plan-button" data-contact-sales="${seat.id}">${seat.cta}</button>
