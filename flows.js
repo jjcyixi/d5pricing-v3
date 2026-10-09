@@ -200,7 +200,7 @@
       regular,
       first,
       eligibleFirst,
-      planLabel: `${planName(plan)} · ${tierName(tier)}`,
+      planLabel: planName(plan), // version only; tier has its own row on checkout
       cycleLabel: annual ? (state.lang === 'zh' ? '年购 · 一次支付' : 'Yearly · pay once') : (state.lang === 'zh' ? '月购 · 单次' : 'Monthly · one-time'),
       serviceStart: win.start,
       serviceEnd: win.end,
@@ -433,7 +433,8 @@
     }
     const fromLabel = m.plan === 'community'
       ? planName('community')
-      : `${planName(m.plan)} · ${tierName(m.tier)} · ${m.billing === 'annual' ? '年购' : '月购'}`;
+      : `${planName(m.plan)} · ${m.billing === 'annual' ? '年购' : '月购'}`;
+    const fromTierLabel = m.plan === 'community' || m.tier == null ? '—' : tierName(m.tier);
     const diff = estimateUpgradeDiff(o);
     o.amount = diff;
     o.topupCredits = Math.max(0, o.credits - (m.tier != null ? tiers[m.tier].credits : 0));
@@ -446,6 +447,7 @@
         <div class="flow-rows">
           <div class="flow-row"><span class="k">${c.from}</span><span class="v">${fromLabel}</span></div>
           <div class="flow-row"><span class="k">${c.to}</span><span class="v">${o.planLabel}</span></div>
+          <div class="flow-row"><span class="k">${flowCopy.checkout.rows.tier}</span><span class="v">${fromTierLabel} → ${tierName(o.tier)}</span></div>
           <div class="flow-row"><span class="k">${c.diff}</span><span class="v">¥${diff}</span></div>
           <div class="flow-row"><span class="k">服务到期日</span><span class="v">${o.serviceEnd}（不变）</span></div>
         </div>
