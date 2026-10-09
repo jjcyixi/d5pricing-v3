@@ -60,6 +60,8 @@ body.editing .global-nav { top: auto; }
 /* Views */
 .view { display: none; }
 .view.is-active { display: block; }
+/* Shared SPA host: stay visible while #flow-host is shown (JS keeps is-active in sync). */
+#flow-host:not([hidden]) #flow-root.view { display: block; }
 #view-pricing.is-active ~ .reference-footer { display: block; }
 body:not([data-route="pricing"]) .reference-footer { display: none; }
 body:not([data-route="pricing"]) #workflow,

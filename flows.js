@@ -304,7 +304,11 @@
     demo.route = route;
     document.body.dataset.route = route;
 
-    document.querySelectorAll('.view').forEach(v => v.classList.toggle('is-active', v.id === `view-${route}`));
+    // All non-pricing routes share #flow-root (single .view host). Keep it is-active
+    // whenever a flow is shown — matching against view-${route} would strip is-active
+    // and .view { display:none } would hide checkout / upgrade / etc.
+    const flowRoot = document.getElementById('flow-root');
+    if (flowRoot) flowRoot.classList.toggle('is-active', route !== 'pricing');
 
     // pricing view is the main content (not wrapped as .view alone — we toggle visibility)
     const mainPricing = document.getElementById('view-pricing');
