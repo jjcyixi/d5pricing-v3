@@ -7,9 +7,9 @@
   <meta name="description" content="选择适合你的 D5 方案，比较个人版本、AI 用量与设计工作流权益。">
   <title>D5 · 选择你的创作方案</title>
   <link rel="icon" href="assets/d5-logo.png">
-  <link rel="stylesheet" href="styles.css?v=20261009-checkout-version">
-  <link rel="stylesheet" href="recommender.css?v=20261009-checkout-version">
-  <link rel="stylesheet" href="flows.css?v=20261009-checkout-version">
+  <link rel="stylesheet" href="styles.css?v=20261010-edit-i18n">
+  <link rel="stylesheet" href="recommender.css?v=20261010-edit-i18n">
+  <link rel="stylesheet" href="flows.css?v=20261010-edit-i18n">
 </head>
 <body data-route="pricing">
   <div class="demo-toolbar" id="demo-toolbar" aria-label="演示与编辑工具栏"></div>
@@ -53,8 +53,8 @@
 
     <section class="section container" id="workflow" aria-labelledby="workflow-title">
       <div class="section-head">
-        <h2 id="workflow-title" data-edit="workflow.title">方案推荐</h2>
-        <p data-edit="workflow.subtitle">让创作走的更远</p>
+        <h2 id="workflow-title" data-i18n="workflow.title" data-edit="workflow.title">方案推荐</h2>
+        <p data-i18n="workflow.subtitle" data-edit="workflow.subtitle">让创作走的更远</p>
       </div>
       <div class="plan-finder" id="plan-finder"></div>
     </section>
@@ -71,7 +71,7 @@
 
     <section class="faq" id="faq" aria-labelledby="faq-title">
       <div class="container faq-inner">
-        <div class="faq-title"><h2 id="faq-title">FAQ</h2></div>
+        <div class="faq-title"><h2 id="faq-title" data-edit="faq.title">FAQ</h2></div>
         <div class="faq-list">
           <details><summary><span data-i18n="faq.q1" data-edit="faq.q1">各档方案只差积分吗？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a1" data-edit="faq.a1">不只积分。小 / 中 / 大还会影响并发任务、图片/视频规格、充值赠送与积分有效期。基础与专业同档积分一致，核心差异是：①商用——基础为生成内容可商用，专业为全部成果可商用；②增强、放大——Arco 两端都消耗积分；专业版渲染器侧不消耗积分，基础版不支持渲染器侧增强。具体以功能入口说明为准。</p></details>
           <details><summary><span data-i18n="faq.q2" data-edit="faq.q2">年购积分如何发放？会自动续费吗？</span><img src="assets/figma/caret-down-faq.svg" alt=""></summary><p data-i18n="faq.a2" data-edit="faq.a2">年购一次支付，积分仍按月发放，未用完不累计到下一积分月。当前为到期不自动续费；是否自动续费以购买确认页为准。</p></details>
@@ -115,8 +115,9 @@
   </footer>
 
   <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20261009-checkout-version"></script>
-  <script src="recommender.js?v=20261009-checkout-version"></script>
-  <script src="flows.js?v=20261009-checkout-version"></script>
+  <script src="app.js?v=20261010-edit-i18n"></script>
+  <script src="i18n-sync.js?v=20261010-edit-i18n"></script>
+  <script src="recommender.js?v=20261010-edit-i18n"></script>
+  <script src="flows.js?v=20261010-edit-i18n"></script>
 </body>
 </html>

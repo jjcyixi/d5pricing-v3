@@ -40,22 +40,37 @@
   const plan = () => [...selection.goals].some(i => i >= 3) ? 'pro' : 'basic';
   const asset = name => `assets/figma/${name}.svg`;
 
+  window.writeFinderCopy = function writeFinderCopy(key, lang, val) {
+    const tree = words[lang];
+    if (!tree) return;
+    const m = key.match(/^finder\.(questions|goals|goalHints|usage|offers|offerHints)\.(\d+)$/);
+    if (m) {
+      tree[m[1]][Number(m[2])] = val;
+      return;
+    }
+    const simple = key.match(/^finder\.(title|subtitle|recommended|why|monthly|annual|choose|proChoose|preview|previewNote|close|basicReason|proReason|topupNote|firstOffer|firstOfferAnnual|credits|perMonth)$/);
+    if (simple) tree[simple[1]] = val;
+  };
+  window.finderWords = words;
+
   function render() {
     const c = w();
-    document.querySelector('#workflow-title').textContent = c.title;
-    document.querySelector('#workflow .section-head p').textContent = c.subtitle;
+    const titleEl = document.querySelector('#workflow-title');
+    const subEl = document.querySelector('#workflow .section-head p');
+    if (titleEl) { titleEl.textContent = c.title; titleEl.setAttribute('data-edit', 'finder.title'); }
+    if (subEl) { subEl.textContent = c.subtitle; subEl.setAttribute('data-edit', 'finder.subtitle'); }
     root.innerHTML = `
       <div class="finder-steps">
         ${c.questions.map((question, step) => `<div class="finder-step"><fieldset>
-          <legend><span class="step-number">0${step + 1}</span>${question}</legend>
+          <legend><span class="step-number">0${step + 1}</span><span data-edit="finder.questions.${step}">${question}</span></legend>
           <div class="finder-options ${step === 0 ? 'goal-options' : ''}">
             ${step === 0 ? c.goals.map((label, i) => `<label class="finder-option goal-option" title="${c.goalHints[i]}">
               <input type="checkbox" name="creative-goal" value="${i}">
-              <img class="goal-icon" src="${asset('goal-unchecked')}" alt=""><span>${label}</span>
+              <img class="goal-icon" src="${asset('goal-unchecked')}" alt=""><span data-edit="finder.goals.${i}">${label}</span>
             </label>`).join('') : step === 1 ? c.usage.map((label, i) => `<label class="finder-option usage-option">
-              <input type="radio" name="finder-usage" value="${i}"><span>${label}<small>${format(tiers[i].credits)} ${c.credits}${c.perMonth}</small></span>
+              <input type="radio" name="finder-usage" value="${i}"><span><span data-edit="finder.usage.${i}">${label}</span><small>${format(tiers[i].credits)} ${c.credits}${c.perMonth}</small></span>
             </label>`).join('') : c.offers.map((label, i) => `<label class="finder-option offer-option" title="${c.offerHints[i]}">
-              <input type="radio" name="finder-offer" value="${i}"><span>${label}</span>
+              <input type="radio" name="finder-offer" value="${i}"><span data-edit="finder.offers.${i}">${label}</span>
             </label>`).join('')}
           </div>
         </fieldset>
@@ -64,8 +79,8 @@
       </div>
       <aside class="finder-result" aria-label="${c.recommended}">
         <div class="finder-result-box">
-        <p class="finder-eyebrow">${c.recommended}</p>
-        <div class="finder-billing"><span>${c.monthly}</span><button class="toggle" type="button" data-finder-billing aria-pressed="false"><span></span></button><span class="finder-annual">${c.annual}<b class="finder-discount" data-finder-discount></b></span></div>
+        <p class="finder-eyebrow" data-edit="finder.recommended">${c.recommended}</p>
+        <div class="finder-billing"><span data-edit="finder.monthly">${c.monthly}</span><button class="toggle" type="button" data-finder-billing aria-pressed="false"><span></span></button><span class="finder-annual"><span data-edit="finder.annual">${c.annual}</span><b class="finder-discount" data-finder-discount></b></span></div>
         <div class="finder-result-content">
           <div class="finder-summary" aria-live="polite" aria-atomic="true"></div>
           <div class="credit-block">
@@ -76,12 +91,16 @@
             </div>
           </div>
           <div class="finder-explanation"></div>
-          <button class="plan-button finder-choose" type="button"></button>
+          <button class="plan-button finder-choose" type="button" data-edit="finder.choose"></button>
         </div>
         </div>
       </aside>
-      <dialog class="finder-dialog" aria-labelledby="finder-dialog-title"><h3 id="finder-dialog-title">${c.preview}</h3><p data-preview-summary></p><p>${c.previewNote}</p><form method="dialog"><button class="plan-button">${c.close}</button></form></dialog>`;
+      <dialog class="finder-dialog" aria-labelledby="finder-dialog-title"><h3 id="finder-dialog-title" data-edit="finder.preview">${c.preview}</h3><p data-preview-summary></p><p data-edit="finder.previewNote">${c.previewNote}</p><form method="dialog"><button class="plan-button" data-edit="finder.close">${c.close}</button></form></dialog>`;
     sync();
+    if (window.D5Flows?.demo?.editing) {
+      // Re-enable editing after finder re-render
+      try { window.D5Flows.afterPricingRender(); } catch (_) {}
+    }
   }
 
   function sync() {

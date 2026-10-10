@@ -56,6 +56,10 @@ body.editing [contenteditable="true"]:focus {
   outline: 2px solid var(--ai); background: rgba(148, 89, 255, .08);
 }
 body.editing .global-nav { top: auto; }
+body.editing button[contenteditable="true"],
+body.editing a[contenteditable="true"] { cursor: text; }
+body.editing .plan-button [data-edit],
+body.editing .flow-btn [data-edit] { display: inline; }
 
 /* Views */
 .view { display: none; }

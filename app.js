@@ -26,6 +26,7 @@ const copy = {
     'education.title': 'D5学生版', 'education.subtitle': '专为高校在校生推出的特别权益方案，助力教与学', 'education.button': '立即申请',
     'workflow.title': '方案推荐', 'workflow.subtitle': '让创作走的更远',
     'comparison.title': '完整功能对比', 'comparison.subtitle': '详细对比套餐及功能权益',
+    'faq.title': 'FAQ',
     'faq.q1': '各档方案只差积分吗？',
     'faq.a1': '不只积分。小 / 中 / 大还会影响并发任务、图片/视频规格、充值赠送与积分有效期。基础与专业同档积分一致，核心差异是：①商用——基础为生成内容可商用，专业为全部成果可商用；②增强、放大——Arco 两端都消耗积分；专业版渲染器侧不消耗积分，基础版不支持渲染器侧增强。具体以功能入口说明为准。',
     'faq.q2': '年购积分如何发放？会自动续费吗？',
@@ -56,6 +57,7 @@ const copy = {
     'education.title': 'D5 for Education', 'education.subtitle': 'A special plan for enrolled university students — teaching and learning', 'education.button': 'Apply',
     'workflow.title': 'Plan finder', 'workflow.subtitle': 'Take your creativity further',
     'comparison.title': 'Compare all features', 'comparison.subtitle': 'Detailed comparison of plans and features',
+    'faq.title': 'FAQ',
     'faq.q1': 'Do tiers only differ in credits?',
     'faq.a1': 'No. Small / Medium / Large also change concurrency, image/video caps, top-up bonuses and credit validity. Basic and Pro share the same credit tiers. Core differences: (1) commercial — Basic covers AI output; Pro covers all deliverables; (2) enhance/upscale — Arco always consumes credits; Render enhance is free of credits on Pro only (unsupported on Basic). Follow the feature entry copy.',
     'faq.q2': 'How are yearly credits issued? Auto-renew?',
@@ -706,10 +708,11 @@ function syncBillingToggle() {
   }
 }
 
-function listItems(list) {
-  return list.map(item => {
+function listItems(list, keyPrefix) {
+  return list.map((item, idx) => {
     const body = Array.isArray(item) ? `${item[0]}<em>${item[1]}</em>` : item;
-    return `<li><img class="check" src="assets/figma/check-circle.svg" alt=""><span>${body}</span></li>`;
+    const edit = keyPrefix ? ` data-edit="${keyPrefix}.${idx}" data-edit-html="1"` : '';
+    return `<li><img class="check" src="assets/figma/check-circle.svg" alt=""><span${edit}>${body}</span></li>`;
   }).join('');
 }
 
@@ -720,25 +723,26 @@ function capacityBlock(plan, tierIndex) {
     : `<div class="capacity-meter" aria-hidden="true"><i class="${tierIndex >= 0 ? 'on' : ''}"></i><i class="${tierIndex >= 1 ? 'on' : ''}"></i><i class="${tierIndex >= 2 ? 'on' : ''}"></i></div>`;
   return `
     <div class="capacity-zone" data-capacity-zone="${plan}">
-      <div class="capacity-label">${state.lang === 'zh' ? '用量额度' : 'Capacity'}</div>
-      <div class="capacity-title" data-capacity-title="${plan}">${c.title}</div>
-      <div class="capacity-sub" data-capacity-sub="${plan}">${c.sub}</div>
+      <div class="capacity-label" data-edit="capacity.label">${state.lang === 'zh' ? '用量额度' : 'Capacity'}</div>
+      <div class="capacity-title" data-capacity-title="${plan}" data-edit="capacity.${plan}.title">${c.title}</div>
+      <div class="capacity-sub" data-capacity-sub="${plan}" data-edit="capacity.${plan}.sub">${c.sub}</div>
       ${ticks}
     </div>`;
 }
 
-function benefitBlocks(aiList, workflowList) {
+function benefitBlocks(aiList, workflowList, plan, tierIndex) {
   const p = P();
+  const tierKey = plan === 'community' ? '0' : String(tierIndex ?? 0);
   return `
     <div class="benefit-stack">
       <div class="benefit-block benefit-ai">
-        <div class="benefit-label">${p.aiLabel}</div>
-        <ul class="plan-list" data-ai-list>${listItems(aiList)}</ul>
+        <div class="benefit-label" data-edit="plan.aiLabel">${p.aiLabel}</div>
+        <ul class="plan-list" data-ai-list>${listItems(aiList, `benefit.${plan}.ai.${tierKey}`)}</ul>
       </div>
       <div class="benefit-divider" aria-hidden="true"></div>
       <div class="benefit-block benefit-workflow">
-        <div class="benefit-label">${p.workflowLabel}</div>
-        <ul class="plan-list plan-list-secondary" data-workflow-list>${listItems(workflowList)}</ul>
+        <div class="benefit-label" data-edit="plan.workflowLabel">${p.workflowLabel}</div>
+        <ul class="plan-list plan-list-secondary" data-workflow-list>${listItems(workflowList, `benefit.${plan}.workflow`)}</ul>
       </div>
     </div>`;
 }
@@ -768,24 +772,24 @@ function renderPlans() {
     grid.innerHTML = modules.map(mod => `
       <section class="biz-module" data-biz-module="${mod.id}">
         <div class="biz-module-head">
-          <h2>${mod.title}</h2>
-          <p>${mod.subtitle}</p>
-          <p class="biz-module-note">${meta.note}</p>
+          <h2 data-edit="biz.${mod.id}.title">${mod.title}</h2>
+          <p data-edit="biz.${mod.id}.subtitle">${mod.subtitle}</p>
+          <p class="biz-module-note" data-edit="biz.${mod.id}.note">${meta.note}</p>
         </div>
         <div class="biz-seat-grid">
           ${mod.seats.map(seat => `
             <article class="plan-card ${seat.style} seat-card" data-seat="${seat.id}">
               <div class="plan-zone-a">
                 <div class="plan-title">
-                  <div class="plan-name"><h2>${seat.name}</h2></div>
-                  <p class="plan-desc">${seat.desc}</p>
+                  <div class="plan-name"><h2 data-edit="biz.seat.${seat.id}.name">${seat.name}</h2></div>
+                  <p class="plan-desc" data-edit="biz.seat.${seat.id}.desc">${seat.desc}</p>
                 </div>
                 <div class="capacity-zone seat-capacity">
-                  <div class="capacity-title">${seat.credits.toLocaleString('en-US')} ${p.seatYear}</div>
+                  <div class="capacity-title"><span data-edit="biz.seat.${seat.id}.credits">${seat.credits.toLocaleString('en-US')}</span> <span data-edit="plan.seatYear">${p.seatYear}</span></div>
                 </div>
               </div>
-              <button type="button" class="plan-button" data-contact-sales="${seat.id}">${seat.cta}</button>
-              <ul class="plan-list seat-bullets">${listItems(seat.bullets)}</ul>
+              <button type="button" class="plan-button" data-contact-sales="${seat.id}"><span data-edit="biz.seat.${seat.id}.cta">${seat.cta}</span></button>
+              <ul class="plan-list seat-bullets">${listItems(seat.bullets, `biz.seat.${seat.id}.bullet`)}</ul>
             </article>`).join('')}
         </div>
       </section>`).join('');
@@ -806,24 +810,24 @@ function renderPlans() {
     <article class="plan-card ${id}" data-plan-card="${id}">
       <div class="plan-zone-a">
         <div class="plan-title">
-          <p class="plan-desc">${p[id].desc}</p>
-          <div class="plan-name"><h2>${p[id].name}</h2>${firstTag(id)}</div>
+          <p class="plan-desc" data-edit="plan.${id}.desc">${p[id].desc}</p>
+          <div class="plan-name"><h2 data-edit="plan.${id}.name">${p[id].name}</h2>${firstTag(id)}</div>
         </div>
-        <div class="plan-price"><span class="price-value">￥<span data-price="${id}">${price(id, i)}</span></span><span class="price-period" data-period>${period}</span></div>
+        <div class="plan-price"><span class="price-value">￥<span data-price="${id}">${price(id, i)}</span></span><span class="price-period" data-period data-edit="plan.period">${period}</span></div>
         <div class="credit-block">
-          <div class="credit-wrap"><div class="credit-info"><img src="assets/figma/star-four.svg" alt=""><strong><span data-credits="${id}">${tier.credits}</span> ${p.credits}</strong><span>${p.perMonth}</span></div></div>
+          <div class="credit-wrap"><div class="credit-info"><img src="assets/figma/star-four.svg" alt=""><strong><span data-credits="${id}">${tier.credits}</span> <span data-edit="plan.credits">${p.credits}</span></strong><span data-edit="plan.perMonth">${p.perMonth}</span></div></div>
           <div class="plan-slider" data-plan-slider data-plan="${id}" style="--progress:${tierProgress[i]}">
             <span class="slider-fill" aria-hidden="true"></span>
             <span class="slider-ticks" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="slider-handle" aria-hidden="true"></span>
-            <span class="slider-label" data-tier-label="${id}" aria-hidden="true">${p.tierNames[i]}</span>
+            <span class="slider-label" data-tier-label="${id}" data-edit="plan.tierNames.${i}" aria-hidden="true">${p.tierNames[i]}</span>
             <input type="range" min="0" max="2" step="1" value="${i}" aria-label="${p[id].name} · ${p.sliderLabel}" aria-valuetext="${p.tierNames[i]}, ${tier.credits} ${p.credits}">
           </div>
         </div>
       </div>
-      <button type="button" class="plan-button" data-flow-buy="${id}">${p.upgrade}</button>
+      <button type="button" class="plan-button" data-flow-buy="${id}"><span data-edit="plan.${id}.cta">${p.upgrade}</span></button>
       ${capacityBlock(id, i)}
-      ${benefitBlocks(personalAi(state.lang, id, i), personalWorkflow(state.lang, id))}
+      ${benefitBlocks(personalAi(state.lang, id, i), personalWorkflow(state.lang, id), id, i)}
     </article>`;
   };
 
@@ -831,15 +835,15 @@ function renderPlans() {
     <article class="plan-card community">
       <div class="plan-zone-a">
         <div class="plan-title">
-          <p class="plan-desc">${p.community.desc}</p>
-          <div class="plan-name"><h2>${p.community.name}</h2></div>
+          <p class="plan-desc" data-edit="plan.community.desc">${p.community.desc}</p>
+          <div class="plan-name"><h2 data-edit="plan.community.name">${p.community.name}</h2></div>
         </div>
-        <div class="plan-price"><span class="price-value">￥0</span><span class="price-period">${p.free}</span></div>
-        <div class="plan-info"><p>${p.community.info}</p></div>
+        <div class="plan-price"><span class="price-value">￥0</span><span class="price-period" data-edit="plan.free">${p.free}</span></div>
+        <div class="plan-info"><p data-edit="plan.community.info">${p.community.info}</p></div>
       </div>
-      <a class="plan-button" href="#pricing">${p.download}</a>
+      <a class="plan-button" href="#pricing" data-nav="pricing"><span data-edit="plan.community.download">${p.download}</span></a>
       ${capacityBlock('community', 0)}
-      ${benefitBlocks(personalAi(state.lang, 'community', 0), personalWorkflow(state.lang, 'community'))}
+      ${benefitBlocks(personalAi(state.lang, 'community', 0), personalWorkflow(state.lang, 'community'), 'community', 0)}
     </article>
     ${paidCard('basic')}
     ${paidCard('pro')}`;
@@ -882,9 +886,9 @@ function syncPaidCard(plan) {
   }
 
   const aiList = card.querySelector('[data-ai-list]');
-  if (aiList) aiList.innerHTML = listItems(personalAi(state.lang, plan, i));
+  if (aiList) aiList.innerHTML = listItems(personalAi(state.lang, plan, i), `benefit.${plan}.ai.${i}`);
   const wfList = card.querySelector('[data-workflow-list]');
-  if (wfList) wfList.innerHTML = listItems(personalWorkflow(state.lang, plan));
+  if (wfList) wfList.innerHTML = listItems(personalWorkflow(state.lang, plan), `benefit.${plan}.workflow`);
 
   const cap = capacityCopy(state.lang, plan, i);
   const titleEl = card.querySelector(`[data-capacity-title="${plan}"]`);
@@ -921,15 +925,18 @@ function renderCompare() {
   $('#compare').innerHTML = `
     <table class="compare-table">
       <thead class="compare-head"><tr>
-        <th scope="col" class="lead"><span>${c.lead}<img src="assets/figma/chevron-down-12.svg" alt=""></span></th>
-        ${c.cols.map(name => `<th scope="col" class="col">${name}</th>`).join('')}
+        <th scope="col" class="lead"><span data-edit="compare.lead">${c.lead}</span><img src="assets/figma/chevron-down-12.svg" alt=""></th>
+        ${c.cols.map((name, i) => `<th scope="col" class="col" data-edit="compare.col.${i}">${name}</th>`).join('')}
       </tr></thead>
       <tbody class="compare-body">
-        ${c.groups.map(group => `
-          <tr><th colspan="4" class="compare-group"><img src="assets/figma/caret-down.svg" alt="">${group.title}</th></tr>
-          ${group.rows.map(row => {
+        ${c.groups.map((group, gi) => `
+          <tr><th colspan="4" class="compare-group"><img src="assets/figma/caret-down.svg" alt=""><span data-edit="compare.g${gi}.title">${group.title}</span></th></tr>
+          ${group.rows.map((row, ri) => {
             const [label, ...vals] = row;
-            return `<tr class="compare-row"><th scope="row" class="lead">${label}</th>${vals.map(v => `<td class="col">${cellHtml(v)}</td>`).join('')}</tr>`;
+            return `<tr class="compare-row"><th scope="row" class="lead" data-edit="compare.g${gi}.r${ri}.label">${label}</th>${vals.map((v, ci) => {
+              if (v === true || v === false) return `<td class="col">${cellHtml(v)}</td>`;
+              return `<td class="col"><span class="compare-text" data-edit="compare.g${gi}.r${ri}.c${ci}">${v}</span></td>`;
+            }).join('')}</tr>`;
           }).join('')}
         `).join('')}
       </tbody>
@@ -1025,6 +1032,7 @@ window.state = state;
 window.tiers = tiers;
 window.plans = plans;
 window.businessModules = businessModules;
+window.businessMeta = businessMeta;
 window.copy = copy;
 window.compareData = compareData;
 window.renderPlans = renderPlans;
