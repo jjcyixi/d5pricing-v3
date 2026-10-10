@@ -17,6 +17,8 @@
     ['立即购买', 'Buy now'],
     ['免费下载', 'Free Download'],
     ['方案推荐', 'Plan finder'],
+    ['选择你心仪的方案', 'Choose your preferred plan'],
+    ['选择你心动的优惠', 'Choose your preferred offer'],
     ['让创作走的更远', 'Take your creativity further'],
     ['完整功能对比', 'Compare all features'],
     ['详细对比套餐及功能权益', 'Detailed comparison of plans and features'],

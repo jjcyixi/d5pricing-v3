@@ -5,7 +5,7 @@
   const words = {
     zh: {
       title: '方案推荐', subtitle: '让创作走的更远',
-      questions: ['你想完成哪类创作？', '你的创作频率大概是怎样？', '选择你心动的优惠'],
+      questions: ['你想完成哪类创作？', '你的创作频率大概是怎样？', '选择你心仪的方案'],
       goals: ['个人兴趣及探索', 'AI 图片与视频生成', '设计项目策划和汇报', '更高品质、更可控的 3D 渲染', '可漫游及互动的 3D 演示'],
       goalHints: ['尝试 AI 创作，探索灵感和不同表达', '生成图片、视频，进行多轮创意迭代', '辅助方案构思、视觉表达和项目汇报', '使用更多 D5 产品，完成更精细的渲染表达', '制作可漫游、可互动的空间演示'],
       usage: ['偶尔尝试', '稳定创作', '高频交付'], offers: ['首月优惠', '长期订阅更省', '充值补充积分'],
@@ -20,7 +20,7 @@
     },
     en: {
       title: 'Choose the right plan for you', subtitle: 'Take your creativity further',
-      questions: ['What would you like to create?', 'How often do you create?', 'Choose the offer you love'],
+      questions: ['What would you like to create?', 'How often do you create?', 'Choose your preferred plan'],
       goals: ['Personal exploration', 'AI image and video creation', 'Design planning and presentations', 'Higher-quality, more controllable 3D rendering', 'Walkthroughs and interactive 3D presentations'],
       goalHints: ['Explore inspiration and new creative styles', 'Generate images and videos and iterate on ideas', 'Develop concepts, visuals and project presentations', 'Use more D5 products for refined rendering', 'Create immersive, interactive spatial presentations'],
       usage: ['Explore occasionally', 'Create regularly', 'Deliver at high volume'], offers: ['First-month offer', 'Long-term savings', 'Top up credits'],
